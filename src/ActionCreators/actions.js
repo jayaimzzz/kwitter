@@ -35,10 +35,10 @@ export const deleteUser = user => {
     }
 }
 
-export const addLike = kweet => {
+export const addLike = (kweet , user) => {
     return {
         type: ADD_LIKE,
-        payload: kweet
+        payload: { kweet, user }
     }
 }
 
