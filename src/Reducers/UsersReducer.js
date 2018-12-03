@@ -21,7 +21,7 @@ const initState = {
         ]
 }
 
-export const reducer = (state = initState, action) => {
+export const UsersReducer = (state = initState, action) => {
     switch (action.type){
         case ADD_USER:
         let newUsers = state.users.slice().push(action.payload.user)
