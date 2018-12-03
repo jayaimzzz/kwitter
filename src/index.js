@@ -5,8 +5,8 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 
-import App from "./components/App";
-import rootReducer from "./reducers";
+import App from "./Components/App";
+import rootReducer from "./Reducers";
 
 const store = createStore(rootReducer);
 
