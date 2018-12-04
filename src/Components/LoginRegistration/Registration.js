@@ -11,7 +11,7 @@ import { API_DOMAIN } from "../../Constants";
 const styles = {
   root: {
     flexGrow: 1,
-    background: "pink",
+    background: "lightgreen",
     height: "100vh"
   },
   Paper: {
@@ -44,16 +44,17 @@ class Login extends Component {
   handleSubmit = event => {
     event.preventDefault();
     axios
-      .post(API_DOMAIN + "/auth/login", {
+      .post(API_DOMAIN + "/auth/register", {
         username: this.state.username,
         password: this.state.password,
         displayName: this.state.displayName
       })
       .then(response => {
-        if (!response.data.error) {
+          console.log('new user response: ', response.data);
+        if (!(response.data.success === false)) {
           this.props.getUsers();
         } else {
-          console.log(response.data.error);
+          console.log('unable to register new user');
         }
       })
       .catch(error => {
