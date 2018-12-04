@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Grid, Button, TextField, Typography, Paper } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
+
+import { logInUser } from '../../ActionCreators/actions';
 
 const styles = {
   root: {
@@ -33,12 +36,11 @@ class Login extends Component {
     this.setState({
       [name]: event.target.value
     });
-    console.log(event.target.value);
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log("whatever");
+    this.props.logInUser({username: this.state.username, password: this.state.password})
   };
 
   render() {
@@ -71,4 +73,11 @@ class Login extends Component {
   }
 }
 
-export default withStyles(styles)(Login);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        logInUser: (userLogin) => dispatch(logInUser(userLogin))
+    };
+}
+
+const styledComponent = withStyles(styles)(Login);
+export default connect(null, mapDispatchToProps)(styledComponent);
