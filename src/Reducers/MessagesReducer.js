@@ -21,13 +21,15 @@ const initState = {
 
 export const MessagesReducer = (state = initState, action) => {
     switch (action.type){
-        case ADD_KWEET:
-        let messages = state.messageas.slice().push(action.payload)
-        return {messages}
+        case ADD_KWEET: {
+            let messages = state.messageas.slice().push(action.payload)
+            return {messages}
+        }
 
-        case DELETE_KWEET:
-        let messages = state.messages.slice().filter(message => message.id !== action.payload.id)
-        return {messages};
+        case DELETE_KWEET: {
+            let messages = state.messages.slice().filter(message => message.id !== action.payload.id)
+            return {messages};
+        }
 
         //TODO 
         case ADD_LIKE:

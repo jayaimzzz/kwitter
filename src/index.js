@@ -1,14 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import thunk from 'redux-thunk';
 import * as serviceWorker from "./serviceWorker";
 
 import App from "./Components/App";
 import rootReducer from "./Reducers";
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 const Index = ({ store }) => (
   <Provider store={store}>
