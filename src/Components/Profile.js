@@ -25,16 +25,16 @@ export default class Profile extends Component {
       .then(res => res.json())
       .then(res => {
         console.log(res.user);
-        this.setState({
-          user: {
-            id: res.user.id,
-            username: res.user.username,
-            displayName: res.user.displayName,
-            about: res.user.about,
-            createdAt: res.user.createdAt,
-            updatedAt: res.user.updatedAt
-          }
-        });
+        // this.setState({
+        //   user: {
+        //     id: res.user.id,
+        //     username: res.user.username,
+        //     displayName: res.user.displayName,
+        //     about: res.user.about,
+        //     createdAt: res.user.createdAt,
+        //     updatedAt: res.user.updatedAt
+        //   }
+        // });
       });
   }
   render() {
