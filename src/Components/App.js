@@ -8,7 +8,8 @@ import {
   UserList,
   Profile,
   TrendingList,
-  Login
+  Login,
+  Registration
 } from "./index";
 import { Grid } from "@material-ui/core";
 
@@ -47,7 +48,7 @@ class App extends Component {
       <Fragment>
         <Switch>
           <Route exact path="/login" render={() => <Login />} />
-          <Route exact path="/register" render={() => <p>register</p>} />
+          <Route exact path="/register" render={() => <Registration />} />
           <Route exact path="/" render={this.renderMain} />
           <Route path="/users/:id" render={() => <p>user</p>} />
         </Switch>
