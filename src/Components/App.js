@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, NavLink } from "react-router-dom";
 import {
   Header,
   Nav,
@@ -7,7 +7,8 @@ import {
   KweetList,
   UserList,
   Profile,
-  TrendingList
+  TrendingList,
+  Login
 } from "./index";
 import { Grid } from "@material-ui/core";
 
@@ -37,6 +38,7 @@ class App extends Component {
           <UserList />
         </Grid>
       </Grid>
+      <NavLink exact to="/login" >Login</NavLink>
     </Fragment>
   );
 
@@ -44,7 +46,7 @@ class App extends Component {
     return (
       <Fragment>
         <Switch>
-          <Route exact path="/login" render={() => <p>login</p>} />
+          <Route exact path="/login" render={() => <Login />} />
           <Route exact path="/register" render={() => <p>register</p>} />
           <Route exact path="/" render={this.renderMain} />
           <Route path="/users/:id" render={() => <p>user</p>} />
