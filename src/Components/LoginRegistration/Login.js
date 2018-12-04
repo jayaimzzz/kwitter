@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import { Grid, Button, TextField, Typography, Paper } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
-import { logInUser } from '../../ActionCreators/actions';
+import { logInUser } from "../../ActionCreators/actions";
 
 const styles = {
   root: {
     flexGrow: 1,
-    background: 'pink',
-    height: '100vh'
+    background: "pink",
+    height: "100vh"
   },
   Paper: {
     display: "flex",
@@ -18,11 +18,11 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     maxWidth: 500,
-    padding: '4vw'
+    padding: "4vw"
   },
   form: {
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "column"
   }
 };
 
@@ -40,13 +40,21 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.logInUser({username: this.state.username, password: this.state.password})
+    this.props.logInUser({
+      username: this.state.username,
+      password: this.state.password
+    });
   };
 
   render() {
     const { classes } = this.props;
     return (
-      <Grid container className={classes.root} justify='center' alignItems="center">
+      <Grid
+        container
+        className={classes.root}
+        justify="center"
+        alignItems="center"
+      >
         <Paper className={classes.Paper}>
           <Typography variant="h1">Login</Typography>
           <form className={classes.form} noValidate autoComplete="off">
@@ -73,11 +81,14 @@ class Login extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        logInUser: (userLogin) => dispatch(logInUser(userLogin))
-    };
-}
+const mapDispatchToProps = dispatch => {
+  return {
+    logInUser: userLogin => dispatch(logInUser(userLogin))
+  };
+};
 
 const styledComponent = withStyles(styles)(Login);
-export default connect(null, mapDispatchToProps)(styledComponent);
+export default connect(
+  null,
+  mapDispatchToProps
+)(styledComponent);

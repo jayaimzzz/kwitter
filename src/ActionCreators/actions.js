@@ -8,6 +8,7 @@ export const DELETE_USER = "DELETE_USER";
 export const ADD_LIKE = "ADD_LIKE";
 export const DELETE_LIKE = "DELETE_LIKE";
 export const LOGIN_USER = "LOGIN_USER";
+export const REFRESH_USERS = "REFRESH_USERS";
 
 export const addKweet = kweet => {
   return {
@@ -50,6 +51,23 @@ export const deleteLike = kweet => {
     payload: kweet
   };
 };
+
+export function getUsers() {
+  return function(dispatch) {
+    axios.get(API_DOMAIN + "/users?limit=100&offset=0").then(response => {
+      if (response.data.users) {
+        dispatch({
+          type: REFRESH_USERS,
+          payload: response.data.users
+        })
+      } else {
+        console.log(response.data.error);
+      }
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+}
 
 export function logInUser({ username, password }) {
   return function(dispatch) {
