@@ -23,12 +23,14 @@ const initState = {
 
 export const UsersReducer = (state = initState, action) => {
     switch (action.type){
-        case ADD_USER:
-        let newUsers = state.users.slice().push(action.payload.user)
-        return {"users": newUsers}
-        case DELETE_USER:
-        let newUsers = state.users.slice().filter(user => user.id !== action.payload.id)
-        return {"users": newUsers}
+        case ADD_USER: {
+            let newUsers = state.users.slice().push(action.payload.user)
+            return {"users": newUsers}
+        }
+        case DELETE_USER: {
+            let newUsers = state.users.slice().filter(user => user.id !== action.payload.id)
+            return {"users": newUsers}
+        }
         default: return state;
     }
 }
