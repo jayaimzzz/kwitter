@@ -54,19 +54,22 @@ export const deleteLike = kweet => {
 
 export function getUsers() {
   return function(dispatch) {
-    axios.get(API_DOMAIN + "/users?limit=100&offset=0").then(response => {
-      if (response.data.users) {
-        dispatch({
-          type: REFRESH_USERS,
-          payload: response.data.users
-        })
-      } else {
-        console.log(response.data.error);
-      }
-    }).catch((error) => {
-      console.log(error);
-    });
-  }
+    axios
+      .get(API_DOMAIN + "/users?limit=100&offset=0")
+      .then(response => {
+        if (response.data.users) {
+          dispatch({
+            type: REFRESH_USERS,
+            payload: response.data.users
+          });
+        } else {
+          console.log(response.data.error);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 }
 
 export function logInUser({ username, password }) {
@@ -78,13 +81,13 @@ export function logInUser({ username, password }) {
       })
       .then(response => {
         if (response.data.success) {
-            dispatch({
-                type: LOGIN_USER,
-                payload: {
-                    id: response.data.id,
-                    token: response.data.token
-                }
-            });
+          dispatch({
+            type: LOGIN_USER,
+            payload: {
+              id: response.data.id,
+              token: response.data.token
+            }
+          });
         } else {
           console.log("Access Denied");
         }
