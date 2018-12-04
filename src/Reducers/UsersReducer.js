@@ -38,7 +38,6 @@ export const UsersReducer = (state = initState, action) => {
       return { users: newUsers };
     }
     case REFRESH_USERS: {
-        console.log('refreshing users', action.payload);
       return { users: action.payload };
     }
     default:

@@ -50,7 +50,6 @@ class Login extends Component {
         displayName: this.state.displayName
       })
       .then(response => {
-          console.log('new user response: ', response.data);
         if (!(response.data.success === false)) {
           this.props.getUsers();
         } else {
