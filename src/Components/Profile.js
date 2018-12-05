@@ -6,47 +6,49 @@ import {
   CardContent,
   CardHeader
 } from "@material-ui/core";
+import { connect } from "react-redux";
 // import { connect } from 'react-redux';
 let apiURI = "https://kwitter-api.herokuapp.com";
 
-export default class Profile extends Component {
-  state = {
-    user: {
-      id: "",
-      username: "",
-      displayName: "",
-      about: "",
-      createdAt: "",
-      updatedAt: ""
-    }
-  };
-  componentDidMount() {
-    fetch(apiURI + "/users/" + 8)
-      .then(res => res.json())
-      .then(res => {
-        // this.setState({
-        //   user: {
-        //     id: res.user.id,
-        //     username: res.user.username,
-        //     displayName: res.user.displayName,
-        //     about: res.user.about,
-        //     createdAt: res.user.createdAt,
-        //     updatedAt: res.user.updatedAt
-        //   }
-        // });
-      });
-  }
+class Profile extends Component {
+  // state = {
+  //   user: {
+  //     id: "",
+  //     username: "",
+  //     displayName: "",
+  //     about: "",
+  //     createdAt: "",
+  //     updatedAt: ""
+  //   }
+  // };
+  // componentDidMount() {
+  //   fetch(apiURI + "/users/" + 8)
+  //     .then(res => res.json())
+  //     .then(res => {
+  //       // this.setState({
+  //       //   user: {
+  //       //     id: res.user.id,
+  //       //     username: res.user.username,
+  //       //     displayName: res.user.displayName,
+  //       //     about: res.user.about,
+  //       //     createdAt: res.user.createdAt,
+  //       //     updatedAt: res.user.updatedAt
+  //       //   }
+  //       // });
+  //     });
+  // }
+
   render() {
     return (
       <Fragment>
         <Card>
           <CardContent>
-            <CardHeader title={this.state.user.displayName} />
-            <span>Logged in as: {this.state.user.username}</span>
+            <CardHeader title={this.props.user.displayName} />
+            <span>Logged in as: {this.props.user.username}</span>
             <br />
-            <span>About: {this.state.user.about}</span>
+            <span>About: {this.props.user.about}</span>
             <br />
-            <span>Member since: {this.state.user.createdAt}</span>
+            <span>Member since: {this.props.user.createdAt}</span>
             <br />
             <CardActions>
               <Button href="">Change Display Name</Button>
@@ -60,7 +62,11 @@ export default class Profile extends Component {
   }
 }
 
-// const maptStateToProps = (state) => {
-//     // how do I get a paramarter into this for user id???
-//     return { user: state.users.filter(user => user.id === )}
-// }
+const mapStateToProps = (state) => {
+    return { user: state.users.users.filter(user => user.id === state.loggedInUser.id || 14)[0]}
+}
+
+const mapDispatchToProps = null;
+
+export default connect(mapStateToProps,mapDispatchToProps)(Profile);
+
