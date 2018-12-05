@@ -1,12 +1,14 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
+
 import Kweet from "./Kweet"
 import { getMessages } from '../ActionCreators/actions'
+
 
 const styles = {
   KweetList: {
     margin: "auto",
-    marginTop: 10,
+    marginTop: 50,
     background: "#493154",
     color: "white",
     textAlign: "center"
@@ -27,11 +29,13 @@ componentDidMount(){
     return (
       <Fragment>
         <h1 style={styles.KweetList}>Kweet Feed</h1>
+
         {this.props.messages.map(message => (
           <Kweet key={message.id}
             text={message.text}
             userId={message.userId}
           />
+
         ))}
       </Fragment>
     );
