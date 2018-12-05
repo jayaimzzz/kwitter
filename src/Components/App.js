@@ -39,7 +39,9 @@ class App extends Component {
           <UserList />
         </Grid>
       </Grid>
-      <NavLink exact to="/login" >Login</NavLink>
+      <NavLink exact to="/login">
+        Login
+      </NavLink>
     </Fragment>
   );
 
