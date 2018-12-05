@@ -1,22 +1,7 @@
-import { ADD_KWEET, DELETE_KWEET, ADD_LIKE, DELETE_LIKE } from '../ActionCreators/actions'
+import { ADD_KWEET, DELETE_KWEET, ADD_LIKE, DELETE_LIKE, GET_MESSAGES } from '../ActionCreators/actions'
 
 const initState = {
-    "messages": [
-        {
-            "id": 5,
-            "text": "all hail burt the tortoise",
-            "userId": 5,
-            "createdAt": "2018-11-30T14:50:39.469Z",
-            "likes": []
-        },
-        {
-            "id": 4,
-            "text": "burt the tortoise is your master",
-            "userId": 5,
-            "createdAt": "2018-11-30T14:50:24.698Z",
-            "likes": []
-        }
-    ]
+    "messages": []
 }
 
 export const MessagesReducer = (state = initState, action) => {
@@ -29,6 +14,10 @@ export const MessagesReducer = (state = initState, action) => {
         case DELETE_KWEET: {
             let messages = state.messages.slice().filter(message => message.id !== action.payload.id)
             return {messages};
+        }
+        case GET_MESSAGES: {
+            let messages = action.payload.messages.slice()
+            return {messages}
         }
 
         //TODO 
