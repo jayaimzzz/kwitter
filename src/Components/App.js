@@ -46,10 +46,11 @@ class App extends Component {
   );
 
   render() {
+    // console.log(this)
     return (
       <Fragment>
         <Switch>
-          <Route exact path="/login" render={() => <Login />} />
+          <Route exact path="/login" render={() => <Login history={this.props.history} />} />
           <Route exact path="/register" render={() => <Registration />} />
           <Route exact path="/" render={this.renderMain} />
           <Route path="/users/:id" render={() => <p>user</p>} />
