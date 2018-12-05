@@ -37,6 +37,7 @@ class Profile extends Component {
   //       // });
   //     });
   // }
+
   render() {
     return (
       <Fragment>
@@ -68,3 +69,4 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = null;
 
 export default connect(mapStateToProps,mapDispatchToProps)(Profile);
+
