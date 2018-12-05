@@ -13,6 +13,10 @@ const styles = {
     textAlign: "center",
     width: "40vw",
     height: "7vh"
+  },
+
+  LinkStyle: {
+    color: "white"
   }
 };
 
@@ -24,8 +28,10 @@ const Nav = props => {
         <Toolbar>
           <Button color="inherit">Home</Button>
           <Button color="inherit">Profile</Button>
-          <NavLink exact to="/login">
-            <Button color="inherit">Login</Button>
+          <NavLink exact to="/login" style={{ textDecoration: "none" }}>
+            <Button color="inherit" style={styles.LinkStyle}>
+              Login
+            </Button>
           </NavLink>
         </Toolbar>
       </AppBar>
