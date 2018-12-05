@@ -9,6 +9,7 @@ export const ADD_LIKE = "ADD_LIKE";
 export const DELETE_LIKE = "DELETE_LIKE";
 export const LOGIN_USER = "LOGIN_USER";
 export const REFRESH_USERS = "REFRESH_USERS";
+export const GET_MESSAGES = "GET_MESSAGES";
 
 export const addKweet = kweet => {
   return {
@@ -96,4 +97,26 @@ export function logInUser({ username, password }) {
         console.log(err);
       });
   };
+}
+
+export function getMessages() {
+  return function (dispatch) {
+    console.log('getMessages function called')
+    axios
+    .get(API_DOMAIN + "/messages?limit=1000&offset=0")
+    .then(res => {
+      if (res.statusText === "OK"){
+        dispatch({
+          type: GET_MESSAGES,
+          payload: {
+            messages: res.data.messages
+          }
+        })
+      }
+      console.log("messages", res.data.messages)
+    }).catch(err => {
+      console.log(err);
+    })
+     
+  }
 }

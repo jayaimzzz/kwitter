@@ -24,7 +24,6 @@ export default class Profile extends Component {
     fetch(apiURI + "/users/" + 8)
       .then(res => res.json())
       .then(res => {
-        console.log(res.user);
         // this.setState({
         //   user: {
         //     id: res.user.id,
