@@ -35,7 +35,8 @@ class NewPost extends Component {
   }
 
   handleSubmit = event => {
-    this.props.addKweet({message: this.state.message, token: this.props.loggedInUser.token});
+    this.props.addKweet({message: this.state.message, token: this.props.loggedInUser.token})
+    console.log('hey')
     this.setState({
       message: ''
     });
@@ -45,6 +46,7 @@ class NewPost extends Component {
     return (
       <div style={styles.NewPost}>
         <TextField
+          value={this.state.message}
           id="outlined-textarea"
           label="What are you doing?"
           placeholder="What are thoooseeeee?!?!"
