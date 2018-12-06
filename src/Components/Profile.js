@@ -7,37 +7,8 @@ import {
   CardHeader
 } from "@material-ui/core";
 import { connect } from "react-redux";
-// import { connect } from 'react-redux';
-let apiURI = "https://kwitter-api.herokuapp.com";
 
 class Profile extends Component {
-  // state = {
-  //   user: {
-  //     id: "",
-  //     username: "",
-  //     displayName: "",
-  //     about: "",
-  //     createdAt: "",
-  //     updatedAt: ""
-  //   }
-  // };
-  // componentDidMount() {
-  //   fetch(apiURI + "/users/" + 8)
-  //     .then(res => res.json())
-  //     .then(res => {
-  //       // this.setState({
-  //       //   user: {
-  //       //     id: res.user.id,
-  //       //     username: res.user.username,
-  //       //     displayName: res.user.displayName,
-  //       //     about: res.user.about,
-  //       //     createdAt: res.user.createdAt,
-  //       //     updatedAt: res.user.updatedAt
-  //       //   }
-  //       // });
-  //     });
-  // }
-
   render() {
     return (
       <Fragment>

@@ -10,7 +10,6 @@ const styles = {
     background: "#38a445",
     color: "white",
     textAlign: "center",
-    // width: "40vw",
     height: "70vh"
   },
   h1: {
@@ -19,7 +18,6 @@ const styles = {
   }
 };
 
-// const UserList = props => <div style={styles.UserList}>The UserList</div>;
 class UserList extends Component {
   componentDidMount() {
     this.props.getUsers();
