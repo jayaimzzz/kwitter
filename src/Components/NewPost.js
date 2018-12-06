@@ -53,7 +53,7 @@ class NewPost extends Component {
           // className={classes.textField}
           margin="normal"
           variant="outlined"
-          fullWidth="50px"
+          fullWidth={true}
           inputProps={{ maxLength: 140 }}
           onChange={this.handleChange}
         />
