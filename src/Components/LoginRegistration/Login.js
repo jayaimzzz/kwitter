@@ -32,6 +32,10 @@ class Login extends Component {
     password: ""
   };
 
+  componentDidMount = () => {
+    this.props.history.push('/login');
+  }
+
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value
