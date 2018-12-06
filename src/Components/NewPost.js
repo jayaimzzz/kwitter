@@ -36,7 +36,6 @@ class NewPost extends Component {
 
   handleSubmit = event => {
     this.props.addKweet({message: this.state.message, token: this.props.loggedInUser.token})
-    console.log('hey')
     this.setState({
       message: ''
     });
