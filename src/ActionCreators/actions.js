@@ -12,24 +12,26 @@ export const REFRESH_USERS = "REFRESH_USERS";
 export const GET_MESSAGES = "GET_MESSAGES";
 
 export const addKweet = ({ message, token }) => dispatch => {
-  axios
-    .post(API_DOMAIN + "/messages")
-    .axios({
-      method: "post",
-      url: API_DOMAIN + "/message",
-      headers: {
-        token: token,
-        "Content-type": "application/json",
-        charset: "utf-8"
-      },
-      data: message
-    })
-    .then(response => {
-      dispatch({
-        type: ADD_KWEET,
-        payload: message
-      });
+  console.log(API_DOMAIN + "/messages");
+  console.log(message);
+  console.log(token);
+  // axios.post(API_DOMAIN + "/messages", {text: message}, {headers: {authorization: token, 'content-type'}})
+  axios({
+    method: "POST",
+    url: API_DOMAIN + "/messages",
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      "Content-Type": "application/json",
+      'charset': "utf-8"
+    },
+    data: { 'text': message }
+  }).then(response => {
+    console.log("addKweet response received");
+    dispatch({
+      type: ADD_KWEET,
+      payload: message
     });
+  }).catch(err => console.log(err));
 };
 
 export const addUser = user => {
