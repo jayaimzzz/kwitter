@@ -11,11 +11,25 @@ export const LOGIN_USER = "LOGIN_USER";
 export const REFRESH_USERS = "REFRESH_USERS";
 export const GET_MESSAGES = "GET_MESSAGES";
 
-export const addKweet = kweet => {
-  return {
-    type: ADD_KWEET,
-    payload: kweet
-  };
+export const addKweet = ({ message, token }) => dispatch => {
+  axios
+    .post(API_DOMAIN + "/messages")
+    .axios({
+      method: "post",
+      url: API_DOMAIN + "/message",
+      headers: {
+        token: token,
+        "Content-type": "application/json",
+        charset: "utf-8"
+      },
+      data: message
+    })
+    .then(response => {
+      dispatch({
+        type: ADD_KWEET,
+        payload: message
+      });
+    });
 };
 
 export const addUser = user => {
@@ -100,23 +114,23 @@ export function logInUser({ username, password }) {
 }
 
 export function getMessages() {
-  return function (dispatch) {
-    console.log('getMessages function called')
+  return function(dispatch) {
+    console.log("getMessages function called");
     axios
-    .get(API_DOMAIN + "/messages?limit=1000&offset=0")
-    .then(res => {
-      if (res.statusText === "OK"){
-        dispatch({
-          type: GET_MESSAGES,
-          payload: {
-            messages: res.data.messages
-          }
-        })
-      }
-      console.log("messages", res.data.messages)
-    }).catch(err => {
-      console.log(err);
-    })
-     
-  }
+      .get(API_DOMAIN + "/messages?limit=1000&offset=0")
+      .then(res => {
+        if (res.statusText === "OK") {
+          dispatch({
+            type: GET_MESSAGES,
+            payload: {
+              messages: res.data.messages
+            }
+          });
+        }
+        console.log("messages", res.data.messages);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 }
