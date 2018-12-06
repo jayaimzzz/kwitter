@@ -7,7 +7,7 @@ class Kweet extends Component {
       <Fragment>
             <div>{this.props.text}</div>
             <div>Kweeted by</div>
-            <div>{this.props.userId}</div>
+            <div>{this.props.username}</div>
       </Fragment>
     );
   }

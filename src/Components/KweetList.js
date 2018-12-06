@@ -24,26 +24,28 @@ componentDidMount(){
 }
 
   render() {
-    // this.props.getMessages = 
-    // console.log(this.props.messages);
     return (
       <Fragment>
         <h1 style={styles.KweetList}>Kweet Feed</h1>
-
-        {this.props.messages.map(message => (
-          <Kweet key={message.id}
-            text={message.text}
-            userId={message.userId}
+        {this.props.messages.map(message => {
+          let user = this.props.users.filter(user=>user.id === message.id)[0]
+          let userDisplayName = user ? user.displayName : "anon";
+          // userDisplayName = "" ? user.username : userDisplayName;
+          return  <Kweet key={message.id}
+            text={message.text}  
+            username={userDisplayName}
           />
-
-        ))}
+        })}
       </Fragment>
     );
   }
 }
 
 const mapStateToProps = state => {
-  return { messages: state.messages.messages };
+  return { 
+    messages: state.messages.messages,
+    users: state.users 
+  };
 };
 const mapDispatchToProps = dispatch => {
   return {
