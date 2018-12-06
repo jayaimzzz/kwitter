@@ -7,7 +7,7 @@ const initState = {
 export const MessagesReducer = (state = initState, action) => {
     switch (action.type){
         case ADD_KWEET: {
-            let messages = state.messageas.slice().push(action.payload)
+            let messages = state.messages.slice().push(action.payload)
             return {messages}
         }
 
