@@ -25,20 +25,20 @@ const initState = {
   ]
 };
 
-export const UsersReducer = (state = initState, action) => {
+export const UsersReducer = (state = [], action) => {
   switch (action.type) {
     case ADD_USER: {
-      let newUsers = state.users.slice().push(action.payload.user);
+      let newUsers = state.slice().push(action.payload.user);
       return { users: newUsers };
     }
     case DELETE_USER: {
-      let newUsers = state.users
+      let newUsers = state
         .slice()
         .filter(user => user.id !== action.payload.id);
       return { users: newUsers };
     }
     case REFRESH_USERS: {
-      return { users: action.payload };
+      return action.payload;
     }
     default:
       return state;
