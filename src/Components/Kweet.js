@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import { connect } from "react-redux";
 
 class Kweet extends Component {
   render() {
@@ -8,6 +7,7 @@ class Kweet extends Component {
             <div>{this.props.text}</div>
             <div>Kweeted by</div>
             <div>{this.props.username}</div>
+            <br></br>
       </Fragment>
     );
   }
