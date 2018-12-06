@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Grid, Button, TextField, Typography, Paper } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { logInUser } from "../../ActionCreators/actions";
@@ -33,8 +33,8 @@ class Login extends Component {
   };
 
   componentDidMount = () => {
-    this.props.history.push('/login');
-  }
+    this.props.history.push("/login");
+  };
 
   handleChange = name => event => {
     this.setState({
@@ -48,7 +48,7 @@ class Login extends Component {
       username: this.state.username,
       password: this.state.password
     });
-    this.props.history.push('/')
+    this.props.history.push("/");
   };
 
   render() {
@@ -79,7 +79,7 @@ class Login extends Component {
               Login
             </Button>
           </form>
-          <Link to="/register" >Register as a new user</Link>
+          <Link to="/register">Register as a new user</Link>
         </Paper>
       </Grid>
     );
