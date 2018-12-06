@@ -1,6 +1,10 @@
-import React from "react";
+import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+
+import { addKweet } from '../ActionCreators/actions';
 
 const styles = {
   NewPost: {
@@ -19,24 +23,58 @@ const styles = {
 };
 
 // const NewPost = props => <div style={styles.NewPost}>The NewPost</div>;
-const NewPost = props => {
-  return (
-    <div style={styles.NewPost}>
-      <TextField
-        id="outlined-textarea"
-        label="What are you doing?"
-        placeholder="What are thoooseeeee?!?!"
-        multiline
-        required
-        // className={classes.textField}
-        margin="normal"
-        variant="outlined"
-        fullWidth="50px"
-        inputProps={{ maxLength: 140 }}
-      />
-      <Button style={styles.PostButton}>Post Sweet</Button>
-    </div>
-  );
+class NewPost extends Component {
+  state = {
+    message: ''
+  }
+
+  handleChange = event => {
+    this.setState({
+      message: event.target.value
+    });
+  }
+
+  handleSubmit = event => {
+    this.props.addKweet({message: this.state.message, token: this.props.loggedInUser.token});
+    this.setState({
+      message: ''
+    });
+  }
+
+  render() {
+    return (
+      <div style={styles.NewPost}>
+        <TextField
+          id="outlined-textarea"
+          label="What are you doing?"
+          placeholder="What are thoooseeeee?!?!"
+          multiline
+          required
+          // className={classes.textField}
+          margin="normal"
+          variant="outlined"
+          fullWidth={true}
+          inputProps={{ maxLength: 140 }}
+          onChange={this.handleChange}
+        />
+        <Button style={styles.PostButton} onClick={this.handleSubmit}>Post Sweet</Button>
+      </div>
+    );
+  }
 };
 
-export default NewPost;
+const mapDispatchToProps = dispatch => {
+  return {
+    addKweet: kweet => dispatch(addKweet(kweet))
+  };
+};
+
+const mapStateToProps = state => ({
+  loggedInUser: state.loggedInUser
+});
+
+const styledComponent = withStyles(styles)(NewPost);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(styledComponent);
