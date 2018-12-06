@@ -11,7 +11,7 @@ import {
   Login,
   Registration
 } from "./index";
-import { Grid } from "@material-ui/core";
+import { Grid, Hidden } from "@material-ui/core";
 
 class App extends Component {
   renderMain = () => (
@@ -26,16 +26,19 @@ class App extends Component {
           <Nav />
         </Grid>
       </Grid>
-      <Grid container spacing={16}>
-        <Grid item xs={3}>
-          <Profile />
-          <TrendingList />
-        </Grid>
-        <Grid item xs={5}>
+      <Grid container justify="center" spacing={16}>
+      <Hidden mdDown>
+      
+      <Grid item md={3} sm={9}>
+        <Profile />
+        <TrendingList />
+      </Grid>
+      </Hidden>
+        <Grid item lg={6} md={7} sm={9} xs={12}>
           <NewPost />
           <KweetList />
         </Grid>
-        <Grid item xs={3}>
+        <Grid item lg={3} md={4} sm={9} xs={12}>
           <UserList />
         </Grid>
       </Grid>
