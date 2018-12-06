@@ -52,7 +52,6 @@ class App extends Component {
     } else {
       return <Login history={this.props.history} />
     }
-
   };
 
   render() {

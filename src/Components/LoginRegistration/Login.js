@@ -79,7 +79,7 @@ class Login extends Component {
               Login
             </Button>
           </form>
-          <Link to="/register">Register as a new user</Link>
+          <Link to="/register" >Register as a new user</Link>
         </Paper>
       </Grid>
     );
