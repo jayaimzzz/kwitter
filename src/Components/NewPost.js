@@ -45,6 +45,7 @@ class NewPost extends Component {
     return (
       <div style={styles.NewPost}>
         <TextField
+          value={this.state.message}
           id="outlined-textarea"
           label="What are you doing?"
           placeholder="What are thoooseeeee?!?!"
