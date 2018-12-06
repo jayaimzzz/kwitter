@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import User from "./User";
@@ -25,12 +25,12 @@ class UserList extends Component {
 
   render() {
     return (
-      <Fragment style={styles.UserList}>
+      <div style={styles.UserList}>
         <h1 style={styles.h1}>Users</h1>
         {this.props.users.map(user => (
           <User key={user.id} displayName={user.displayName} />
         ))}
-      </Fragment>
+      </div>
     );
   }
 }
