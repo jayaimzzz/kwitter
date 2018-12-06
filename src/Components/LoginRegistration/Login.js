@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Grid, Button, TextField, Typography, Paper } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { logInUser } from "../../ActionCreators/actions";
@@ -29,12 +29,11 @@ const styles = {
 class Login extends Component {
   state = {
     username: "",
-    password: ""
+    password: "",
+    redirectToRegister: false,
+    redirectToHome: false,
   };
 
-  componentDidMount = () => {
-    this.props.history.push("/login");
-  };
 
   handleChange = name => event => {
     this.setState({
@@ -46,13 +45,27 @@ class Login extends Component {
     event.preventDefault();
     this.props.logInUser({
       username: this.state.username,
-      password: this.state.password
+      password: this.state.password,
+      
     });
-    this.props.history.push("/");
+    this.setState({
+      redirectToHome: true
+    });
   };
+
+  register = () => {
+    this.setState({
+      redirectToRegister: true
+    });
+  }
 
   render() {
     const { classes } = this.props;
+
+    if (this.props.loggedInUser) {
+      return <Redirect to="/" />
+    }
+
     return (
       <Grid
         container
@@ -79,7 +92,7 @@ class Login extends Component {
               Login
             </Button>
           </form>
-          <Link to="/register">Register as a new user</Link>
+          <Link to="/register" onClick={this.register}>Register as a new user</Link>
         </Paper>
       </Grid>
     );
@@ -92,8 +105,12 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+const mapStateToProps = state => ({
+  loggedInUser: state.loggedInUser
+});
+
 const styledComponent = withStyles(styles)(Login);
-export default connect(
-  null,
+export default withRouter(connect(
+  mapStateToProps,
   mapDispatchToProps
-)(styledComponent);
+)(styledComponent));

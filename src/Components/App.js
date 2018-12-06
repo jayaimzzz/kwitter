@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Route, Switch, NavLink } from "react-router-dom";
+import { Route, Switch, NavLink, Redirect, withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
 import {
   Header,
@@ -53,15 +53,16 @@ class App extends Component {
     if (this.props.loggedInUser) {
       return this.renderMain();
     } else {
-      return <Login history={this.props.history} />
+      return <Redirect to="/login"/>
     }
   };
+
 
   render() {
     return (
       <Fragment>
         <Switch>
-          <Route exact path="/login" render={() => <Login history={this.props.history} />} />
+          <Route exact path="/login" render={() => <Login />} />
           <Route exact path="/register" render={() => <Registration />} />
           <Route exact path="/" render={this.selectPage} />
           <Route path="/users/:id" render={() => <p>user</p>} />
@@ -75,4 +76,4 @@ const mapStateToProps = (state) => ({
   loggedInUser: state.loggedInUser
 });
 
-export default connect(mapStateToProps)(App);
+export default withRouter(connect(mapStateToProps)(App));

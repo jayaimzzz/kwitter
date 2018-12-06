@@ -2,8 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
-import { Router } from "react-router-dom";
-import { createBrowserHistory } from 'history';
+import { BrowserRouter } from "react-router-dom";
 import thunk from 'redux-thunk';
 import * as serviceWorker from "./serviceWorker";
 
@@ -15,12 +14,11 @@ const store = createStore(rootReducer, /* preloadedState, */ composeEnhancers(
     applyMiddleware(thunk)
   ));
 
-const history = createBrowserHistory()
 const Index = ({ store }) => (
   <Provider store={store}>
-    <Router history={history}>
-      <App history={history}/>
-    </Router>
+    <BrowserRouter >
+      <App />
+    </BrowserRouter>
   </Provider>
 );
 
