@@ -57,7 +57,7 @@ class NewPost extends Component {
           inputProps={{ maxLength: 140 }}
           onChange={this.handleChange}
         />
-        <Button style={styles.PostButton}>Post Sweet</Button>
+        <Button style={styles.PostButton} onClick={this.handleSubmit}>Post Sweet</Button>
       </div>
     );
   }
