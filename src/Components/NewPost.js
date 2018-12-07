@@ -5,7 +5,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
 import { addKweet } from '../ActionCreators/actions';
+import { Typography } from "@material-ui/core";
 
+const kweetMaxLength = 255
 const styles = {
   NewPost: {
     margin: "auto",
@@ -14,7 +16,7 @@ const styles = {
     color: "white",
     textAlign: "center",
     width: "30vw",
-    height: "10vh"
+    height: "20vh"
   },
   PostButton: {
     color: "white",
@@ -25,12 +27,14 @@ const styles = {
 // const NewPost = props => <div style={styles.NewPost}>The NewPost</div>;
 class NewPost extends Component {
   state = {
-    message: ''
+    message: '',
+    charactersRemaining: kweetMaxLength
   }
 
   handleChange = event => {
     this.setState({
-      message: event.target.value
+      message: event.target.value,
+      charactersRemaining: kweetMaxLength - event.target.value.length
     });
   }
 
@@ -48,16 +52,17 @@ class NewPost extends Component {
           value={this.state.message}
           id="outlined-textarea"
           label="What are you doing?"
-          placeholder="What are thoooseeeee?!?!"
+          placeholder="Kweeting"
           multiline
           required
           // className={classes.textField}
           margin="normal"
           variant="outlined"
           fullWidth={true}
-          inputProps={{ maxLength: 140 }}
+          inputProps={{ maxLength: kweetMaxLength }}
           onChange={this.handleChange}
         />
+        <Typography>{this.state.charactersRemaining} Characters Remaining</Typography>
         <Button style={styles.PostButton} onClick={this.handleSubmit}>Post Sweet</Button>
       </div>
     );
