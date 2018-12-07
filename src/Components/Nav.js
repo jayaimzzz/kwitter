@@ -1,41 +1,56 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-// import Typography from "@material-ui/core/Typography";
+import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import { NavLink } from "react-router-dom";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
 
 const styles = {
-  Nav: {
-    margin: "auto",
-    background: "#e8703b",
-    color: "white",
-    textAlign: "center",
-    width: "40vw",
-    height: "7vh"
+  root: {
+    position: "fixed",
+    top: 0,
+    width: "100%",
+    zIndex: 10000
   },
-
-  LinkStyle: {
-    color: "white"
+  grow: {
+    flexGrow: 1
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20
   }
 };
 
-// const Nav = props => <div style={styles.Nav}>The Nav</div>;
 const Nav = props => {
+  const { classes } = props;
   return (
-    <div>
+    <div style={styles.root}>
       <AppBar position="static">
         <Toolbar>
-          <Button color="inherit">Home</Button>
-          <Button color="inherit">Profile</Button>
-          <NavLink exact to="/login" style={{ textDecoration: "none" }}>
-            <Button color="inherit" style={styles.LinkStyle}>
-              Login
-            </Button>
-          </NavLink>
+          <IconButton
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="Menu"
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" color="inherit" className={classes.grow}>
+            SWITTER
+          </Typography>
+          <Typography variant="h6" color="inherit">
+            Home
+          </Typography>
         </Toolbar>
       </AppBar>
     </div>
   );
 };
-export default Nav;
+
+Nav.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(Nav);
