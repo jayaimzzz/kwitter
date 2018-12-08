@@ -15,7 +15,7 @@ const styles = {
     // background: "#ffa500",
     color: "white",
     textAlign: "center",
-    width: "30vw",
+    width: "45vw",
     height: "20vh"
   },
   PostButton: {
@@ -41,7 +41,8 @@ class NewPost extends Component {
   handleSubmit = event => {
     this.props.addKweet({message: this.state.message, token: this.props.loggedInUser.token});
     this.setState({
-      message: ''
+      message: '',
+      charactersRemaining: kweetMaxLength
     });
   }
 
@@ -54,6 +55,7 @@ class NewPost extends Component {
           label="What are you doing?"
           placeholder="Kweeting"
           multiline
+          rows="5"
           required
           // className={classes.textField}
           margin="normal"
