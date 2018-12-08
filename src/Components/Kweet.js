@@ -1,16 +1,83 @@
 import React, { Component, Fragment } from "react";
+import { withStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import ThumbUp from "@material-ui/icons/ThumbUp";
+import Delete from "@material-ui/icons/Delete";
+import Avatar from "@material-ui/core/Avatar";
+import CardHeader from "@material-ui/core/CardHeader";
+import moment from "moment";
+
+const styles = {
+  card: {
+    minWidth: 275
+  },
+  kweet: {
+    fontSize: 18,
+    color: "black"
+  },
+  pos: {
+    marginTop: 12
+  },
+  avatar: {
+    margin: 0
+  },
+  title: {
+    color: "darkgrey",
+    fontSize: 18
+  },
+  date: {
+    fontSize: 16
+  },
+  separator: {
+    flexGrow: 2
+  }
+};
 
 class Kweet extends Component {
   render() {
+    const { classes } = this.props;
+    let userPhotoSrc =
+      "http://www.dealnetcapital.com/wp-content/blogs.dir/9/files/2014/10/blank-profile.png";
+
     return (
-      <Fragment>
-            <div>{this.props.text}</div>
-            <div>Kweeted by</div>
-            <div>{this.props.username}</div>
-            <br></br>
-      </Fragment>
+      <Card className={classes.pos}>
+        <CardHeader
+          avatar={<Avatar src={userPhotoSrc} className={classes.avatar} />}
+          action={<Typography>{moment(this.props.createdAt).fromNow()}</Typography>}
+          title={this.props.username + ":"}
+          classes={{
+            title: classes.title,
+            action: classes.date
+          }}
+        />
+        <CardContent>
+          <Typography className={classes.kweet}>"{this.props.text}"</Typography>
+        </CardContent>
+        <CardActions>
+          <IconButton
+            onClick={() => console.log("Like kweet button clicked")}
+            className={classes.like}
+          >
+            <ThumbUp />
+          </IconButton>
+          <Typography className={classes.like}>
+            {this.props.likes.length}
+          </Typography>
+          <Typography className={classes.separator} />
+          <IconButton
+            onClick={() => console.log("Delete kweet button clicked")}
+            className={classes.delete}
+          >
+            <Delete />
+          </IconButton>
+        </CardActions>
+      </Card>
     );
   }
 }
 
-export default Kweet
+export default withStyles(styles)(Kweet);

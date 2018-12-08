@@ -35,6 +35,8 @@ class KweetList extends Component {
             <Kweet
               key={message.id}
               text={message.text}
+              createdAt={message.createdAt}
+              likes={message.likes}
               username={userDisplayName}
             />
           );
