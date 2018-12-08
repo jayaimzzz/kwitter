@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Route, Switch, NavLink, Redirect, withRouter } from "react-router-dom";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import {
   Header,
   Nav,
@@ -23,18 +23,15 @@ class App extends Component {
         </Grid>
       </Grid>
       <Grid container justify="center" spacing={16}>
-        <Grid item>
-          <Nav />
-        </Grid>
+        <Nav />
       </Grid>
       <Grid container justify="center" spacing={16}>
-      <Hidden mdDown>
-      
-      <Grid item md={3} sm={9}>
-        <Profile />
-        <TrendingList />
-      </Grid>
-      </Hidden>
+        <Hidden mdDown>
+          <Grid item md={3} sm={9}>
+            <Profile />
+            <TrendingList />
+          </Grid>
+        </Hidden>
         <Grid item lg={6} md={7} sm={9} xs={12}>
           <NewPost />
           <KweetList />
@@ -53,10 +50,9 @@ class App extends Component {
     if (this.props.loggedInUser) {
       return this.renderMain();
     } else {
-      return <Redirect to="/login"/>
+      return <Redirect to="/login" />;
     }
   };
-
 
   render() {
     return (
@@ -72,7 +68,7 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   loggedInUser: state.loggedInUser
 });
 
