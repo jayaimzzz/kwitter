@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import User from "./User";
 import { getUsers } from "../ActionCreators/actions";
+import { history } from '../index';
 
 const styles = {
   UserList: {
@@ -23,12 +24,14 @@ class UserList extends Component {
     this.props.getUsers();
   }
 
+  handleUserClick = id => event => history.push('/users/' + id);
+
   render() {
     return (
       <div style={styles.UserList}>
         <h1 style={styles.h1}>Users</h1>
         {this.props.users.map(user => (
-          <User key={user.id} displayName={user.displayName} />
+          <User key={user.id} displayName={user.displayName} onClick={this.handleUserClick(user.id)}/>
         ))}
       </div>
     );
