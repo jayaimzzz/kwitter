@@ -42,6 +42,7 @@ const styles = {
 class Kweet extends Component {
   render() {
     const { classes } = this.props;
+    let userLikesThisMessage = this.props.likes.filter(like => like.userId === this.props.loggedInUser.id).length === 1 ? true :false;
     let userPhotoSrc =
       "http://www.dealnetcapital.com/wp-content/blogs.dir/9/files/2014/10/blank-profile.png";
 
