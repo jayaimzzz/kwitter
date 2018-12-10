@@ -7,11 +7,12 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import ThumbUp from "@material-ui/icons/ThumbUp";
+import ThumbDown from "@material-ui/icons/ThumbDown";
 import Delete from "@material-ui/icons/Delete";
 import Avatar from "@material-ui/core/Avatar";
 import CardHeader from "@material-ui/core/CardHeader";
 import moment from "moment";
-import { addLike } from "../ActionCreators/actions"
+import { addLike } from "../ActionCreators/actions";
 
 const styles = {
   card: {
@@ -40,9 +41,21 @@ const styles = {
 };
 
 class Kweet extends Component {
+  state = {
+    qtyLikes: this.props.likes.length,
+    userLikesThisMessage: this.props.likes.filter(like => like.userId === this.props.loggedInUser.id).length === 1? true: false
+  }
+
+  thumbsDownClicked = () =>{
+    console.log("thumbs Down clicked")
+    this.setState({
+      qtyLikes: this.state.qtyLikes - 1,
+      userLikesThisMessage: !this.state.userLikesThisMessage
+    })
+  }
+
   render() {
     const { classes } = this.props;
-    let userLikesThisMessage = this.props.likes.filter(like => like.userId === this.props.loggedInUser.id).length === 1 ? true :false;
     let userPhotoSrc =
       "http://www.dealnetcapital.com/wp-content/blogs.dir/9/files/2014/10/blank-profile.png";
 
@@ -50,7 +63,9 @@ class Kweet extends Component {
       <Card className={classes.pos}>
         <CardHeader
           avatar={<Avatar src={userPhotoSrc} className={classes.avatar} />}
-          action={<Typography>{moment(this.props.createdAt).fromNow()}</Typography>}
+          action={
+            <Typography>{moment(this.props.createdAt).fromNow()}</Typography>
+          }
           title={this.props.username + ":"}
           classes={{
             title: classes.title,
@@ -61,15 +76,38 @@ class Kweet extends Component {
           <Typography className={classes.kweet}>"{this.props.text}"</Typography>
         </CardContent>
         <CardActions>
-          <IconButton
-            onClick={() => this.props.addLike(this.props.messageId,this.props.loggedInUser.token)}
-            className={classes.like}
-          >
-            <ThumbUp />
-          </IconButton>
-          <Typography className={classes.like}>
-            {this.props.likes.length}
-          </Typography>
+          {!this.state.userLikesThisMessage && (
+            <Fragment>
+              <IconButton
+                onClick={() =>
+                  this.props.addLike(
+                    this.props.messageId,
+                    this.props.loggedInUser.token
+                  )
+                }
+                className={classes.like}
+              >
+                <ThumbUp />
+              </IconButton>
+              <Typography className={classes.like}>
+                {this.state.qtyLikes}
+              </Typography>
+            </Fragment>
+          )}
+          {this.state.userLikesThisMessage && (
+            <Fragment>
+              <IconButton
+                onClick={this.thumbsDownClicked}
+                className={classes.like}
+              >
+                <ThumbDown />
+              </IconButton>
+              <Typography className={classes.like}>
+                {this.state.qtyLikes}
+              </Typography>
+              <Typography> You like this Kweet</Typography>
+            </Fragment>
+          )}
           <Typography className={classes.separator} />
           <IconButton
             onClick={() => console.log("Delete kweet button clicked")}
@@ -83,14 +121,19 @@ class Kweet extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {loggedInUser: state.loggedInUser}
+const mapStateToProps = state => {
+  return { loggedInUser: state.loggedInUser };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    addLike: (messageId, token) => {dispatch(addLike(messageId, token))}
-  }
+    addLike: (messageId, token) => {
+      dispatch(addLike(messageId, token));
+    }
+  };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Kweet));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(Kweet));
