@@ -107,10 +107,10 @@ export function logInUser({ username, password }) {
   };
 }
 
-export function getMessages() {
+export function getMessages(offset = 0) {
   return function(dispatch) {
     axios
-      .get(API_DOMAIN + "/messages?limit=1000&offset=0")
+      .get(API_DOMAIN + "/messages?limit=20&offset=" + offset)
       .then(res => {
         if (res.statusText === "OK") {
           dispatch({

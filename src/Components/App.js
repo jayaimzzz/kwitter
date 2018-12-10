@@ -13,8 +13,21 @@ import {
   Registration
 } from "./index";
 import { Grid, Hidden } from "@material-ui/core";
+import { getMessages } from "../ActionCreators/actions";
 
 class App extends Component {
+  componentDidMount = () => {
+    window.addEventListener("scroll", this.loadMoreKweets);
+  };
+
+  loadMoreKweets = () => {
+    let windowRelativeBottom = document.documentElement.getBoundingClientRect()
+      .bottom;
+    if (windowRelativeBottom <= document.documentElement.clientHeight + 300) {
+      this.props.getMessages(this.props.messageOffset);
+    }
+  };
+
   renderMain = () => (
     <Fragment>
       <Grid container justify="center" spacing={16}>
@@ -69,7 +82,19 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  loggedInUser: state.loggedInUser
+  loggedInUser: state.loggedInUser,
+  messageOffset: state.messages.length
 });
 
-export default withRouter(connect(mapStateToProps)(App));
+const mapDispatchToProps = dispatch => {
+  return {
+    getMessages: offset => dispatch(getMessages(offset))
+  };
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
+);
