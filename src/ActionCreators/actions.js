@@ -16,14 +16,16 @@ export const addKweet = ({ message, token }) => dispatch => {
     method: "POST",
     url: API_DOMAIN + "/messages",
     headers: {
-      'Authorization': 'Bearer ' + token,
+      Authorization: "Bearer " + token,
       "Content-Type": "application/json",
-      'charset': "utf-8"
+      charset: "utf-8"
     },
-    data: { 'text': message }
-  }).then(() => {
-    dispatch(getMessages());
-  }).catch(err => console.log(err));
+    data: { text: message }
+  })
+    .then(() => {
+      dispatch(getMessages());
+    })
+    .catch(err => console.log(err));
 };
 
 export const addUser = user => {
@@ -47,12 +49,30 @@ export const deleteUser = user => {
   };
 };
 
-export const addLike = (kweet, user) => {
-  return {
-    type: ADD_LIKE,
-    payload: { kweet, user }
+export function addLike(messageId, token) {
+  return function(dispatch) {
+    axios({
+      method: "POST",
+      url: API_DOMAIN + "/likes",
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+        charset: "utf-8"
+      },
+      data: { messageId: messageId }
+    })
+      .then(responce => {
+        if (responce.data) {
+          dispatch({
+            type: ADD_LIKE,
+            payload: { like: responce.data }
+          });
+        }
+      })
+      .catch(err => console.log(err));
+    // console.log(messageId, token);
   };
-};
+}
 
 export const deleteLike = kweet => {
   return {
@@ -64,7 +84,7 @@ export const deleteLike = kweet => {
 export function getUsers() {
   return function(dispatch) {
     axios
-      .get(API_DOMAIN + "/users?limit=100&offset=0")
+      .get(API_DOMAIN + "/users?limit=1000&offset=0")
       .then(response => {
         if (response.data.users) {
           dispatch({

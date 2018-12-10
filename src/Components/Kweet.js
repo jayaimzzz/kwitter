@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -10,6 +11,7 @@ import Delete from "@material-ui/icons/Delete";
 import Avatar from "@material-ui/core/Avatar";
 import CardHeader from "@material-ui/core/CardHeader";
 import moment from "moment";
+import { addLike } from "../ActionCreators/actions"
 
 const styles = {
   card: {
@@ -59,7 +61,7 @@ class Kweet extends Component {
         </CardContent>
         <CardActions>
           <IconButton
-            onClick={() => console.log("Like kweet button clicked")}
+            onClick={() => this.props.addLike(this.props.messageId,this.props.loggedInUser.token)}
             className={classes.like}
           >
             <ThumbUp />
@@ -80,4 +82,14 @@ class Kweet extends Component {
   }
 }
 
-export default withStyles(styles)(Kweet);
+const mapStateToProps = (state) => {
+  return {loggedInUser: state.loggedInUser}
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addLike: (messageId, token) => {dispatch(addLike(messageId, token))}
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Kweet));
