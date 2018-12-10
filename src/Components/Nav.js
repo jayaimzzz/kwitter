@@ -40,7 +40,9 @@ const Nav = props => {
           <Typography variant="h6" color="inherit" className={classes.grow}>
             SWITTER
           </Typography>
-          <Button variant="contained" color="primary" onClick={props.logout}>Sign Out</Button>
+          <Button variant="contained" color="primary" onClick={props.logout}>
+            Sign Out
+          </Button>
           <Typography variant="h6" color="inherit">
             Home
           </Typography>

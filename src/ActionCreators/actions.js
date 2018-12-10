@@ -10,21 +10,23 @@ export const DELETE_LIKE = "DELETE_LIKE";
 export const LOGIN_USER = "LOGIN_USER";
 export const REFRESH_USERS = "REFRESH_USERS";
 export const GET_MESSAGES = "GET_MESSAGES";
-export const LOGOUT = 'LOGOUT';
+export const LOGOUT = "LOGOUT";
 
 export const addKweet = ({ message, token }) => dispatch => {
   axios({
     method: "POST",
     url: API_DOMAIN + "/messages",
     headers: {
-      'Authorization': 'Bearer ' + token,
+      Authorization: "Bearer " + token,
       "Content-Type": "application/json",
-      'charset': "utf-8"
+      charset: "utf-8"
     },
-    data: { 'text': message }
-  }).then(() => {
-    dispatch(getMessages());
-  }).catch(err => console.log(err));
+    data: { text: message }
+  })
+    .then(() => {
+      dispatch(getMessages());
+    })
+    .catch(err => console.log(err));
 };
 
 export const addUser = user => {
@@ -108,17 +110,24 @@ export function logInUser({ username, password }) {
   };
 }
 
-export function logout({token}) {
+export function logout({ token }) {
   return function(dispatch) {
-    axios.get(API_DOMAIN + "/auth/logout", {
-      headers: {
-        'Authorization': token,
-        'Content-Type': 'application/json'
-      }
-    }).then(res => res.data.success ? dispatch({
-      type: LOGOUT
-    }) : console.log('logout failed'));
-  }
+    axios
+      .get(API_DOMAIN + "/auth/logout", {
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json"
+        }
+      })
+      .then(res =>
+        res.data.success
+          ? dispatch({
+              type: LOGOUT
+            })
+          : console.log("logout failed")
+      )
+      .catch(err => console.log(err));
+  };
 }
 
 export function getMessages() {

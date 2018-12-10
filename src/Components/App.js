@@ -13,13 +13,12 @@ import {
   Registration
 } from "./index";
 import { Grid, Hidden } from "@material-ui/core";
-import { logout } from '../ActionCreators/actions';
+import { logout } from "../ActionCreators/actions";
 
 class App extends Component {
-
   handleLogout = () => {
     this.props.logout(this.props.loggedInUser.token);
-  }
+  };
 
   renderMain = () => (
     <Fragment>
@@ -29,7 +28,7 @@ class App extends Component {
         </Grid>
       </Grid>
       <Grid container justify="center" spacing={16}>
-        <Nav logout={this.handleLogout}/>
+        <Nav logout={this.handleLogout} />
       </Grid>
       <Grid container justify="center" spacing={16}>
         <Hidden mdDown>
@@ -77,8 +76,13 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    logout: (token) => dispatch(logout(token))
+    logout: token => dispatch(logout(token))
   };
-}
+};
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
+);
