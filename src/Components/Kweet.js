@@ -43,18 +43,40 @@ const styles = {
 class Kweet extends Component {
   state = {
     qtyLikes: this.props.likes.length,
-    userLikesThisMessage: this.props.likes.filter(like => like.userId === this.props.loggedInUser.id).length === 1? true: false
+    like: this.props.likes.filter(like => like.userId === this.props.loggedInUser.id)[0] || null,
+    likeId: this.like ? this.state.like.id : null,
+    // userLikesThisMessage: this.props.likes.filter(like => like.userId === this.props.loggedInUser.id).length === 1? true: false
   }
+
+
+thumbsUpClicked = () => {
+  console.log("thumbs Up clicked")
+  this.props.addLike(
+    this.props.messageId,
+    this.props.loggedInUser.token
+  )
+
+    this.setState({
+      qtyLikes: this.state.qtyLikes + 1,
+      like: this.props.likes.filter(like => like.userId === this.props.loggedInUser.id)[0] || null,
+    likeId: this.like ? this.state.like.id : null,
+      // userLikesThisMessage: true
+    })
+
+}
 
   thumbsDownClicked = () =>{
     console.log("thumbs Down clicked")
     this.setState({
       qtyLikes: this.state.qtyLikes - 1,
-      userLikesThisMessage: !this.state.userLikesThisMessage
+      like: null,
+      likeId: null
+      // userLikesThisMessage: false
     })
   }
 
   render() {
+    // console.log(this.state)
     const { classes } = this.props;
     let userPhotoSrc =
       "http://www.dealnetcapital.com/wp-content/blogs.dir/9/files/2014/10/blank-profile.png";
@@ -76,15 +98,10 @@ class Kweet extends Component {
           <Typography className={classes.kweet}>"{this.props.text}"</Typography>
         </CardContent>
         <CardActions>
-          {!this.state.userLikesThisMessage && (
+          {this.state.like === null && (
             <Fragment>
               <IconButton
-                onClick={() =>
-                  this.props.addLike(
-                    this.props.messageId,
-                    this.props.loggedInUser.token
-                  )
-                }
+                onClick={this.thumbsUpClicked}
                 className={classes.like}
               >
                 <ThumbUp />
@@ -94,7 +111,7 @@ class Kweet extends Component {
               </Typography>
             </Fragment>
           )}
-          {this.state.userLikesThisMessage && (
+          {this.state.like !== null && (
             <Fragment>
               <IconButton
                 onClick={this.thumbsDownClicked}

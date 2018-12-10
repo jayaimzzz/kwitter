@@ -65,7 +65,7 @@ export function addLike(messageId, token) {
         if (responce.data) {
           dispatch({
             type: ADD_LIKE,
-            payload: { like: responce.data }
+            payload: responce.data.like 
           });
         }
       })

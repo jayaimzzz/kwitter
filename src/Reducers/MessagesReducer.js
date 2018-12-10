@@ -21,8 +21,11 @@ export const MessagesReducer = (state = initState, action) => {
         }
 
         //TODO 
-        case ADD_LIKE:
-        return state
+        case ADD_LIKE: 
+        let messages = state.messages.slice()
+        let indexOfLikedMessage = messages.findIndex(message => message.id === action.payload.messageId)
+        messages[indexOfLikedMessage]['likes'].push(action.payload)
+        return {messages}
         
         //TODO
         case DELETE_LIKE:
