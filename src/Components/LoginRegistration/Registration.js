@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Grid, Button, TextField, Typography, Paper } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
 
@@ -28,11 +28,12 @@ const styles = {
   }
 };
 
-class Login extends Component {
+class Registration extends Component {
   state = {
     username: "",
     password: "",
-    displayName: ""
+    displayName: "",
+    redirectToLogin: false
   };
 
   handleChange = name => event => {
@@ -52,6 +53,9 @@ class Login extends Component {
       .then(response => {
         if (!(response.data.success === false)) {
           this.props.getUsers();
+          this.setState({
+            redirectToLogin: true
+          });
         } else {
           console.log('unable to register new user');
         }
@@ -63,6 +67,11 @@ class Login extends Component {
 
   render() {
     const { classes } = this.props;
+
+    if (this.state.redirectToLogin) {
+      return <Redirect to="/login" />;
+    }
+
     return (
       <Grid
         container
@@ -108,7 +117,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const styledComponent = withStyles(styles)(Login);
+const styledComponent = withStyles(styles)(Registration);
 export default connect(
   null,
   mapDispatchToProps
