@@ -1,4 +1,5 @@
 import axios from "axios";
+// import FormData from 'form-data';
 import { API_DOMAIN } from "../Constants";
 
 export const ADD_KWEET = "ADD_KWEET";
@@ -10,6 +11,7 @@ export const DELETE_LIKE = "DELETE_LIKE";
 export const LOGIN_USER = "LOGIN_USER";
 export const REFRESH_USERS = "REFRESH_USERS";
 export const GET_MESSAGES = "GET_MESSAGES";
+export const UPDATE_USER = "UPDATE_USER";
 export const LOGOUT = "LOGOUT";
 
 export const addKweet = ({ message, token }) => dispatch => {
@@ -48,6 +50,25 @@ export const deleteUser = user => {
     type: DELETE_USER,
     payload: user
   };
+};
+
+export const updateUser = (token, userInfo) => dispatch => {
+  console.log("token", token);
+  console.log("userInfo", userInfo);
+  axios
+    .patch(API_DOMAIN + "/users", userInfo, {
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => {
+      console.log("dispatching update user");
+      dispatch({
+        type: UPDATE_USER
+      });
+    })
+    .catch(err => console.log(err));
 };
 
 export const addLike = (kweet, user) => {
@@ -149,3 +170,19 @@ export function getMessages(offset = 0) {
       });
   };
 }
+
+export const uploadImage = ({ token, image }) => dispatch => {
+  let formData = new FormData();
+  formData.append("picture", image);
+
+  axios
+    .put(API_DOMAIN + "/users/picture", formData, {
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "multipart/form-data"
+      }
+    })
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+};
+
