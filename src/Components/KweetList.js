@@ -25,7 +25,7 @@ class KweetList extends Component {
     return (
       <Fragment>
         <h1 style={styles.KweetList}>Kweet Feed</h1>
-        {this.props.messages.map(message => {
+          {this.props.messages.map(message => {
           let indexOfUser = this.props.users.findIndex(
             user => user.id === message.userId
           );
@@ -48,7 +48,7 @@ class KweetList extends Component {
 
 const mapStateToProps = state => {
   return {
-    messages: state.messages.messages,
+    messages: state.messages,
     users: state.users
   };
 };

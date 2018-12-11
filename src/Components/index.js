@@ -7,6 +7,7 @@ import UserList from "./UserList";
 import TrendingList from "./TrendingList";
 import Login from "./LoginRegistration/Login";
 import Registration from "./LoginRegistration/Registration";
+import UserPage from './UserPage';
 
 export {
   Header,
@@ -17,5 +18,6 @@ export {
   UserList,
   TrendingList,
   Login,
-  Registration
+  Registration,
+  UserPage
 };

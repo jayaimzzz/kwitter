@@ -12,6 +12,7 @@ export const LOGIN_USER = "LOGIN_USER";
 export const REFRESH_USERS = "REFRESH_USERS";
 export const GET_MESSAGES = "GET_MESSAGES";
 export const UPDATE_USER = "UPDATE_USER";
+export const LOGOUT = "LOGOUT";
 
 export const addKweet = ({ message, token }) => dispatch => {
   axios({
@@ -130,10 +131,30 @@ export function logInUser({ username, password }) {
   };
 }
 
-export function getMessages() {
+export function logout({ token }) {
   return function(dispatch) {
     axios
-      .get(API_DOMAIN + "/messages?limit=1000&offset=0")
+      .get(API_DOMAIN + "/auth/logout", {
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json"
+        }
+      })
+      .then(res =>
+        res.data.success
+          ? dispatch({
+              type: LOGOUT
+            })
+          : console.log("logout failed")
+      )
+      .catch(err => console.log(err));
+  };
+}
+
+export function getMessages(offset = 0) {
+  return function(dispatch) {
+    axios
+      .get(API_DOMAIN + "/messages?limit=20&offset=" + offset)
       .then(res => {
         if (res.statusText === "OK") {
           dispatch({
@@ -164,3 +185,4 @@ export const uploadImage = ({ token, image }) => dispatch => {
     .then(res => console.log(res))
     .catch(err => console.log(err));
 };
+

@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { withStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+import { withStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
 
-import { addKweet } from '../ActionCreators/actions';
+import { addKweet } from "../ActionCreators/actions";
 import { Typography } from "@material-ui/core";
 
-const kweetMaxLength = 255
+const kweetMaxLength = 255;
 const styles = {
   NewPost: {
     margin: "auto",
@@ -27,24 +27,27 @@ const styles = {
 // const NewPost = props => <div style={styles.NewPost}>The NewPost</div>;
 class NewPost extends Component {
   state = {
-    message: '',
+    message: "",
     charactersRemaining: kweetMaxLength
-  }
+  };
 
   handleChange = event => {
     this.setState({
       message: event.target.value,
       charactersRemaining: kweetMaxLength - event.target.value.length
     });
-  }
+  };
 
   handleSubmit = event => {
-    this.props.addKweet({message: this.state.message, token: this.props.loggedInUser.token});
+    this.props.addKweet({
+      message: this.state.message,
+      token: this.props.loggedInUser.token
+    });
     this.setState({
-      message: '',
+      message: "",
       charactersRemaining: kweetMaxLength
     });
-  }
+  };
 
   render() {
     return (
@@ -64,12 +67,16 @@ class NewPost extends Component {
           inputProps={{ maxLength: kweetMaxLength }}
           onChange={this.handleChange}
         />
-        <Typography>{this.state.charactersRemaining} Characters Remaining</Typography>
-        <Button style={styles.PostButton} onClick={this.handleSubmit}>Post Sweet</Button>
+        <Typography>
+          {this.state.charactersRemaining} Characters Remaining
+        </Typography>
+        <Button style={styles.PostButton} onClick={this.handleSubmit}>
+          Post Sweet
+        </Button>
       </div>
     );
   }
-};
+}
 
 const mapDispatchToProps = dispatch => {
   return {
