@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Route, Switch, NavLink, Redirect, withRouter } from "react-router-dom";
+import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   Header,
@@ -10,10 +10,12 @@ import {
   Profile,
   TrendingList,
   Login,
-  Registration
+  Registration,
+  UserPage
 } from "./index";
 import { Grid, Hidden } from "@material-ui/core";
 import { getMessages } from "../ActionCreators/actions";
+import { logout } from "../ActionCreators/actions";
 
 class App extends Component {
   componentDidMount = () => {
@@ -28,6 +30,10 @@ class App extends Component {
     }
   };
 
+  handleLogout = () => {
+    this.props.logout(this.props.loggedInUser.token);
+  };
+
   renderMain = () => (
     <Fragment>
       <Grid container justify="center" spacing={16}>
@@ -36,7 +42,7 @@ class App extends Component {
         </Grid>
       </Grid>
       <Grid container justify="center" spacing={16}>
-        <Nav />
+        <Nav logout={this.handleLogout} />
       </Grid>
       <Grid container justify="center" spacing={16}>
         <Hidden mdDown>
@@ -53,9 +59,6 @@ class App extends Component {
           <UserList />
         </Grid>
       </Grid>
-      <NavLink exact to="/login">
-        Login
-      </NavLink>
     </Fragment>
   );
 
@@ -74,7 +77,7 @@ class App extends Component {
           <Route exact path="/login" render={() => <Login />} />
           <Route exact path="/register" render={() => <Registration />} />
           <Route exact path="/" render={this.selectPage} />
-          <Route path="/users/:id" render={() => <p>user</p>} />
+          <Route path="/users/:id" component={UserPage} />
         </Switch>
       </Fragment>
     );
@@ -89,6 +92,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {
     getMessages: offset => dispatch(getMessages(offset))
+    logout: token => dispatch(logout(token))
   };
 };
 

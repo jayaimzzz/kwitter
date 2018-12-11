@@ -31,9 +31,8 @@ class Login extends Component {
     username: "",
     password: "",
     redirectToRegister: false,
-    redirectToHome: false,
+    redirectToHome: false
   };
-
 
   handleChange = name => event => {
     this.setState({
@@ -45,8 +44,7 @@ class Login extends Component {
     event.preventDefault();
     this.props.logInUser({
       username: this.state.username,
-      password: this.state.password,
-      
+      password: this.state.password
     });
     this.setState({
       redirectToHome: true
@@ -57,13 +55,13 @@ class Login extends Component {
     this.setState({
       redirectToRegister: true
     });
-  }
+  };
 
   render() {
     const { classes } = this.props;
 
     if (this.props.loggedInUser) {
-      return <Redirect to="/" />
+      return <Redirect to="/" />;
     }
 
     return (
@@ -92,7 +90,9 @@ class Login extends Component {
               Login
             </Button>
           </form>
-          <Link to="/register" onClick={this.register}>Register as a new user</Link>
+          <Link to="/register" onClick={this.register}>
+            Register as a new user
+          </Link>
         </Paper>
       </Grid>
     );
@@ -110,7 +110,9 @@ const mapStateToProps = state => ({
 });
 
 const styledComponent = withStyles(styles)(Login);
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(styledComponent));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(styledComponent)
+);
