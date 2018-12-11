@@ -8,17 +8,32 @@ import {
   IconButton,
   Input
 } from "@material-ui/core";
+import { connect } from 'react-redux';
 import { InsertPhoto } from "@material-ui/icons";
+import { uploadImage } from '../ActionCreators/actions';
 
 class ImageUpload extends Component {
   state = {
-    open: false
+    open: false,
+    file: null
   };
 
   handleToggle = () => {
     this.setState(prevState => ({
       open: !prevState.open
     }));
+  };
+
+  handleFileChange = event => {
+    const file = event.target.files[0];
+    this.setState({
+      file
+    });
+  }
+
+  handleUpload = event => {
+    this.handleToggle();
+    this.props.imageUpload(this.state.file); 
   };
 
   render() {
@@ -36,10 +51,8 @@ class ImageUpload extends Component {
               Would you like to update your photo?
             </DialogContentText>
             <form>
-              <Input type="file" />
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <Button color="secondary">Save Changes</Button>
-              </div>
+              <Input type="file" onChange={this.handleFileChange} />
+              <Button color="secondary" onClick={this.handleUpload}>Save Changes</Button>
             </form>
           </DialogContent>
         </Dialog>
@@ -48,4 +61,8 @@ class ImageUpload extends Component {
   }
 }
 
-export default ImageUpload;
+const mapDispatchToProps = dispatch => ({
+  imageUpload: image => dispatch(uploadImage(image))
+});
+
+export default connect(null, mapDispatchToProps)(ImageUpload);

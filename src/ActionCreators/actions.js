@@ -148,3 +148,8 @@ export function getMessages() {
       });
   };
 }
+
+export const uploadImage = image => dispatch => {
+  // axios.post(API_DOMAIN, image).
+  console.log(image);
+};
