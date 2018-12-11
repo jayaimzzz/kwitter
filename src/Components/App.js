@@ -2,13 +2,11 @@ import React, { Component, Fragment } from "react";
 import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import {
-  Header,
   Nav,
   NewPost,
   KweetList,
   UserList,
   Profile,
-  TrendingList,
   Login,
   Registration,
 } from "./index";
@@ -37,19 +35,13 @@ class App extends Component {
   renderMain = ({filter}) => {
     return (
     <Fragment>
-      <Grid container justify="center" spacing={16}>
-        <Grid item>
-          <Header />
-        </Grid>
-      </Grid>
-      <Grid container justify="center" spacing={16}>
+      <Grid container justify="center" spacing={16} style={{marginTop: '10vh'}}>
         <Nav logout={this.handleLogout} />
       </Grid>
       <Grid container justify="center" spacing={16}>
         <Hidden mdDown>
           <Grid item md={3} sm={9}>
             <Profile id={filter}/>
-            <TrendingList />
           </Grid>
         </Hidden>
         <Grid item lg={6} md={7} sm={9} xs={12}>
