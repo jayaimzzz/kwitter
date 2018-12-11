@@ -39,7 +39,12 @@ export const MessagesReducer = (state = initState, action) => {
 
     //TODO
     case DELETE_LIKE:
-      return state;
+    messages = state.messages.slice();
+    let likedMessage
+    messages.forEach(message => message.likes.forEach(like => {if(like.id === action.payload.id){likedMessage = message}}))
+    indexOfLikedMessage = messages.findIndex(message => message.id === likedMessage.id)
+    messages[indexOfLikedMessage] = likedMessage 
+    return { messages };
 
     default:
       return state;
