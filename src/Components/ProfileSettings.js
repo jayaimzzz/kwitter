@@ -6,6 +6,7 @@ import {
   DialogContentText,
   DialogTitle,
   IconButton,
+  Input,
   TextField
 } from "@material-ui/core";
 import { Settings } from "@material-ui/icons";
@@ -38,9 +39,9 @@ class ProfileSettings extends Component {
 
   handleSubmit = () => {
     this.handleToggleSettings();
-    const update = {displayName: this.state.displayName};
+    const update = { displayName: this.state.displayName };
     if (this.state.about) {
-      update.about = this.state.about
+      update.about = this.state.about;
     }
     this.props.updateUser(this.props.token, update);
   };
