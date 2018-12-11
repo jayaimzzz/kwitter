@@ -1,4 +1,3 @@
-import Header from "./Header";
 import KweetList from "./KweetList";
 import Nav from "./Nav";
 import NewPost from "./NewPost";
@@ -10,7 +9,6 @@ import Registration from "./LoginRegistration/Registration";
 import UserPage from './UserPage';
 
 export {
-  Header,
   KweetList,
   Nav,
   NewPost,
