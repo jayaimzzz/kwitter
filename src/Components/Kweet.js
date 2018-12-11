@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -10,6 +11,8 @@ import Delete from "@material-ui/icons/Delete";
 import Avatar from "@material-ui/core/Avatar";
 import CardHeader from "@material-ui/core/CardHeader";
 import moment from "moment";
+import { deleteKweet } from "../ActionCreators/actions"
+
 
 const styles = {
   card: {
@@ -70,16 +73,27 @@ class Kweet extends Component {
             {this.props.likes.length}
           </Typography>
           <Typography variant="subtitle1" className={classes.separator} />
-          <IconButton
-            onClick={() => console.log("Delete kweet button clicked")}
+          {this.props.deleteable && (
+
+            <IconButton
+            onClick={() => this.props.deleteKweet(this.props.id)}
             className={classes.delete}
-          >
+            >
             <Delete />
           </IconButton>
+            )}
         </CardActions>
       </Card>
     );
   }
 }
 
-export default withStyles(styles)(Kweet);
+const mapStateToProps = null;
+
+const mapDispatchToProps = dispatch => {
+  return {
+    deleteKweet: (messageId) => {dispatch(deleteKweet(messageId))}
+  }
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(Kweet));

@@ -29,15 +29,18 @@ class KweetList extends Component {
           let indexOfUser = this.props.users.findIndex(
             user => user.id === message.userId
           );
+          let deleteable = message.userId === this.props.loggedInUser.id
           let user = this.props.users[indexOfUser];
           let userDisplayName = user ? user.displayName : "anon";
           return (
             <Kweet
               key={message.id}
+              id={message.id}
               text={message.text}
               createdAt={message.createdAt}
               likes={message.likes}
               username={userDisplayName}
+              deleteable={deleteable}
             />
           );
         })}
@@ -49,7 +52,8 @@ class KweetList extends Component {
 const mapStateToProps = state => {
   return {
     messages: state.messages,
-    users: state.users
+    users: state.users,
+    loggedInUser: state.loggedInUser
   };
 };
 const mapDispatchToProps = dispatch => {
