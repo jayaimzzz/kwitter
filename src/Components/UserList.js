@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import User from "./User";
-import { getUsers } from "../ActionCreators/actions";
+import { getUsers, getUserMessages } from "../ActionCreators/actions";
 import { history } from '../index';
 
 const styles = {
@@ -24,7 +24,9 @@ class UserList extends Component {
     this.props.getUsers();
   }
 
-  handleUserClick = id => event => history.push('/users/' + id);
+  handleUserClick = id => event => {
+    history.push('/users/' + id);
+  }
 
   render() {
     return (
@@ -45,6 +47,9 @@ const mapDispatchToProps = dispatch => {
   return {
     getUsers: () => {
       dispatch(getUsers());
+    },
+    getUserMessages: (id) => {
+      dispatch(getUserMessages(id));
     }
   };
 };
