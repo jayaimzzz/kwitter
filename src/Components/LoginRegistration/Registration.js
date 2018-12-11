@@ -7,11 +7,14 @@ import axios from "axios";
 
 import { getUsers } from "../../ActionCreators/actions";
 import { API_DOMAIN } from "../../Constants";
+import image from './Kweet.png';
 
 const styles = {
   root: {
     flexGrow: 1,
-    background: "lightgreen",
+    backgroundColor: "pink",
+    background: `url(${image}) no-repeat center center fixed`,
+    backgroundSize: 'contain',
     height: "100vh"
   },
   Paper: {
