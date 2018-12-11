@@ -10,20 +10,23 @@ export const DELETE_LIKE = "DELETE_LIKE";
 export const LOGIN_USER = "LOGIN_USER";
 export const REFRESH_USERS = "REFRESH_USERS";
 export const GET_MESSAGES = "GET_MESSAGES";
+export const UPDATE_USER = "UPDATE_USER";
 
 export const addKweet = ({ message, token }) => dispatch => {
   axios({
     method: "POST",
     url: API_DOMAIN + "/messages",
     headers: {
-      'Authorization': 'Bearer ' + token,
+      Authorization: "Bearer " + token,
       "Content-Type": "application/json",
-      'charset': "utf-8"
+      charset: "utf-8"
     },
-    data: { 'text': message }
-  }).then(() => {
-    dispatch(getMessages());
-  }).catch(err => console.log(err));
+    data: { text: message }
+  })
+    .then(() => {
+      dispatch(getMessages());
+    })
+    .catch(err => console.log(err));
 };
 
 export const addUser = user => {
@@ -46,6 +49,25 @@ export const deleteUser = user => {
     payload: user
   };
 };
+
+export const updateUser = (token, userInfo) => dispatch => {
+  console.log('token', token);
+  console.log('userInfo', userInfo);
+  axios
+    .patch(API_DOMAIN + "/users", userInfo, {
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => {
+      console.log('dispatching update user');
+      dispatch({
+        type: UPDATE_USER
+      });
+    })
+    .catch(err => console.log(err));
+  }
 
 export const addLike = (kweet, user) => {
   return {

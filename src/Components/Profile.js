@@ -4,9 +4,13 @@ import {
   Card,
   CardActions,
   CardContent,
-  CardHeader
+  CardHeader,
+  IconButton
 } from "@material-ui/core";
+import { Settings } from "@material-ui/icons";
 import { connect } from "react-redux";
+import ProfileSettings from "./ProfileSettings";
+import { updateUser } from "../ActionCreators/actions";
 
 class Profile extends Component {
   render() {
@@ -16,18 +20,24 @@ class Profile extends Component {
           <CardContent>
             {this.props.user ? (
               <Fragment>
-                <CardHeader title={this.props.user.displayName} />
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <CardHeader title={this.props.user.displayName} />
+                  <CardActions>
+                    <ProfileSettings
+                      user={this.props.user}
+                      updateUser={this.props.updateUser}
+                      token={this.props.token}
+                    />
+                  </CardActions>
+                </div>
                 <span>Logged in as: {this.props.user.username}</span>
                 <br />
                 <span>About: {this.props.user.about}</span>
                 <br />
                 <span>Member since: {this.props.user.createdAt}</span>
                 <br />
-                <CardActions>
-                  <Button href="">Change Display Name</Button>
-                  <Button href="">Change Password</Button>
-                  <Button href="">Delete Account</Button>
-                </CardActions>
               </Fragment>
             ) : null}
           </CardContent>
@@ -39,11 +49,14 @@ class Profile extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.users.filter(user => user.id === state.loggedInUser.id)[0]
+    user: state.users.filter(user => user.id === state.loggedInUser.id)[0],
+    token: state.loggedInUser.token
   };
 };
 
-const mapDispatchToProps = null;
+const mapDispatchToProps = dispatch => ({
+  updateUser: (token, newInfo) => dispatch(updateUser(token, newInfo))
+});
 
 export default connect(
   mapStateToProps,
