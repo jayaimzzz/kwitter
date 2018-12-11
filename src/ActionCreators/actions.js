@@ -38,9 +38,9 @@ export const addUser = user => {
   };
 };
 
-export const deleteKweet = (messageId) => (dispatch, getState) => {
-  let token = getState().loggedInUser.token
-  console.log(token)
+export const deleteKweet = messageId => (dispatch, getState) => {
+  let token = getState().loggedInUser.token;
+  console.log(token);
   axios({
     method: "DELETE",
     url: API_DOMAIN + "/messages/" + messageId,
@@ -49,17 +49,18 @@ export const deleteKweet = (messageId) => (dispatch, getState) => {
       "Content-Type": "application/json",
       charset: "utf-8"
     }
-  }).then(responce => {
-    if(responce){
-      dispatch({
-        type: DELETE_KWEET,
-        payload: messageId
-      })
-    } else {
-      console.log("delete kweet error")
-    }
   })
-  .catch(err => console.log(err));
+    .then(responce => {
+      if (responce) {
+        dispatch({
+          type: DELETE_KWEET,
+          payload: messageId
+        });
+      } else {
+        console.log("delete kweet error");
+      }
+    })
+    .catch(err => console.log(err));
 };
 
 export const deleteUser = user => {
@@ -88,19 +89,34 @@ export const updateUser = (token, userInfo) => dispatch => {
     .catch(err => console.log(err));
 };
 
-export const addLike = (kweet, user) => {
-  return {
-    type: ADD_LIKE,
-    payload: { kweet, user }
-  };
+export const toggleLike = messageId => (dispatch, getState) => {
+  // get messageId
+  // get userId
+  const userId = getState().loggedInUser.id
+  const message = getState().messages.find(message => message.id === messageId)
+  //lookup in the message wheater userId matches one of the likes
+  const like = message.likes.find(like => like.userId === userId)
+  console.log(like)
+
+  //if we found a like, remove like, else, add like
+  if (like) {
+    dispatch(removeLike(like.id));
+  } else {
+    dispatch(addLike(messageId));
+  }
 };
 
-export const deleteLike = kweet => {
-  return {
-    type: DELETE_LIKE,
-    payload: kweet
-  };
-};
+const removeLike = (likeId) => (dispatch) => {
+
+}
+const addLike = (messageId) => console.log(messageId)
+
+// export const deleteLike = kweet => {
+//   return {
+//     type: DELETE_LIKE,
+//     payload: kweet
+//   };
+// };
 
 export function getUsers() {
   return function(dispatch) {

@@ -43,6 +43,9 @@ const styles = {
 };
 
 class Kweet extends Component {
+  // toggleLike = () => {
+  //   console.log('toggleLIke')
+  // }
   render() {
     const { classes } = this.props;
     let userPhotoSrc =
@@ -64,8 +67,9 @@ class Kweet extends Component {
         </CardContent>
         <CardActions>
           <IconButton
-            onClick={() => console.log("Like kweet button clicked")}
+            onClick={this.toggleLike}
             className={classes.like}
+            color={this.props.liked ? "primary":""}
           >
             <ThumbUp />
           </IconButton>
@@ -74,7 +78,6 @@ class Kweet extends Component {
           </Typography>
           <Typography variant="subtitle1" className={classes.separator} />
           {this.props.deleteable && (
-
             <IconButton
             onClick={() => this.props.deleteKweet(this.props.id)}
             className={classes.delete}
