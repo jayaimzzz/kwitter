@@ -30,7 +30,7 @@ export const MessagesReducer = (state = initState, action) => {
         message => (messageDict[message.id] = message)
       );
 
-      let messages = Object.values(messageDict) || [];
+      let messages = Object.values(messageDict).sort((a, b) => b.id - a.id) || [];
       return messages;
     }
 
