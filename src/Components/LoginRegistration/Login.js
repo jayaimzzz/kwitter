@@ -3,7 +3,8 @@ import { Grid, Button, TextField, Typography, Paper } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { Link, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import image from './Kweet.png';
+// import image from './Kweet.png';
+import image from './kweet2.jpg';
 
 import { logInUser } from "../../ActionCreators/actions";
 
