@@ -39,7 +39,7 @@ const Nav = props => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" className={classes.grow}>
-            SWITTER
+            KWITTER
           </Typography>
           <Button variant="contained" color="primary" onClick={props.logout}>
             Sign Out
