@@ -12,7 +12,7 @@ import Delete from "@material-ui/icons/Delete";
 import Avatar from "@material-ui/core/Avatar";
 import CardHeader from "@material-ui/core/CardHeader";
 import moment from "moment";
-import { addLike } from "../ActionCreators/actions";
+import { addLike, deleteLike } from "../ActionCreators/actions";
 
 const styles = {
   card: {
@@ -41,10 +41,11 @@ const styles = {
 };
 
 class Kweet extends Component {
+  like = this.props.likes.filter(like => like.userId === this.props.loggedInUser.id)[0] || null;
   state = {
     qtyLikes: this.props.likes.length,
-    like: this.props.likes.filter(like => like.userId === this.props.loggedInUser.id)[0] || null,
-    likeId: this.like ? this.state.like.id : null,
+    like: this.like,
+    likeId: this.like ? this.like.id : null
     // userLikesThisMessage: this.props.likes.filter(like => like.userId === this.props.loggedInUser.id).length === 1? true: false
   }
 
@@ -67,6 +68,8 @@ thumbsUpClicked = () => {
 
   thumbsDownClicked = () =>{
     console.log("thumbs Down clicked")
+    console.log(this.props.messages)
+    this.props.deleteLike(this.state.likeId, this.props.loggedInUser.token)
     this.setState({
       qtyLikes: this.state.qtyLikes - 1,
       like: null,
@@ -76,7 +79,7 @@ thumbsUpClicked = () => {
   }
 
   render() {
-    // console.log(this.state)
+    console.log(this.state)
     const { classes } = this.props;
     let userPhotoSrc =
       "http://www.dealnetcapital.com/wp-content/blogs.dir/9/files/2014/10/blank-profile.png";
@@ -139,14 +142,13 @@ thumbsUpClicked = () => {
 }
 
 const mapStateToProps = state => {
-  return { loggedInUser: state.loggedInUser };
+  return { loggedInUser: state.loggedInUser, messages: state.messages };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    addLike: (messageId, token) => {
-      dispatch(addLike(messageId, token));
-    }
+    addLike: (messageId, token) => {dispatch(addLike(messageId, token))},
+    deleteLike: (likeId, token) => {dispatch(deleteLike(likeId, token))}
   };
 };
 

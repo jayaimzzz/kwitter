@@ -70,14 +70,27 @@ export function addLike(messageId, token) {
         }
       })
       .catch(err => console.log(err));
-    // console.log(messageId, token);
   };
 }
 
-export const deleteLike = kweet => {
-  return {
-    type: DELETE_LIKE,
-    payload: kweet
+export function deleteLike(likeId, token) {
+  return function(dispatch) {
+    axios({
+      method: "DEL",
+      url: API_DOMAIN + "/likes/" + likeId,
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+        charset: "utf-8"
+      },
+    }).then(responce => {
+      if(responce.data){
+        dispatch({
+          type: DELETE_LIKE,
+          payload: responce.data.like
+        });
+      }
+    }).catch(err => console.log(err));
   };
 };
 
