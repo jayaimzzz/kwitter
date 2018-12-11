@@ -171,6 +171,24 @@ export function getMessages(offset = 0) {
   };
 }
 
+export const getUserMessages = id => dispatch => {
+  axios
+    .get(API_DOMAIN + "/users/" + id)
+    .then(res => {
+      if (res.data.messages) {
+        dispatch({
+          type: GET_MESSAGES,
+          payload: {
+            messages: res.data.messages
+          }
+        });
+      } else {
+        console.log(res);
+      }
+    })
+    .catch(err => console.log(err));
+};
+
 export const uploadImage = ({ token, image }) => dispatch => {
   let formData = new FormData();
   formData.append("picture", image);
@@ -185,4 +203,3 @@ export const uploadImage = ({ token, image }) => dispatch => {
     .then(res => console.log(res))
     .catch(err => console.log(err));
 };
-

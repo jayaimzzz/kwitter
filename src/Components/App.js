@@ -11,13 +11,13 @@ import {
   TrendingList,
   Login,
   Registration,
-  UserPage
 } from "./index";
 import { Grid, Hidden } from "@material-ui/core";
 import { getMessages } from "../ActionCreators/actions";
 import { logout } from "../ActionCreators/actions";
 
 class App extends Component {
+
   componentDidMount = () => {
     window.addEventListener("scroll", this.loadMoreKweets);
   };
@@ -34,7 +34,8 @@ class App extends Component {
     this.props.logout(this.props.loggedInUser.token);
   };
 
-  renderMain = () => (
+  renderMain = ({filter}) => {
+    return (
     <Fragment>
       <Grid container justify="center" spacing={16}>
         <Grid item>
@@ -47,13 +48,13 @@ class App extends Component {
       <Grid container justify="center" spacing={16}>
         <Hidden mdDown>
           <Grid item md={3} sm={9}>
-            <Profile />
+            <Profile id={filter}/>
             <TrendingList />
           </Grid>
         </Hidden>
         <Grid item lg={6} md={7} sm={9} xs={12}>
-          <NewPost />
-          <KweetList />
+          {!filter && <NewPost />}
+          <KweetList id={filter}/>
         </Grid>
         <Grid item lg={3} md={4} sm={9} xs={12}>
           <UserList />
@@ -61,12 +62,15 @@ class App extends Component {
       </Grid>
     </Fragment>
   );
+    }
 
-  selectPage = () => {
-    if (this.props.loggedInUser) {
-      return this.renderMain();
-    } else {
+  selectPage = ({match}) => {
+    if (!this.props.loggedInUser) {
       return <Redirect to="/login" />;
+    } else if (match.params.id) {
+      return this.renderMain({filter: match.params.id})
+    } else {
+      return this.renderMain({filter: null});
     }
   };
 
@@ -77,7 +81,7 @@ class App extends Component {
           <Route exact path="/login" render={() => <Login />} />
           <Route exact path="/register" render={() => <Registration />} />
           <Route exact path="/" render={this.selectPage} />
-          <Route path="/users/:id" component={UserPage} />
+          <Route path="/users/:id" render={this.selectPage} />
         </Switch>
       </Fragment>
     );

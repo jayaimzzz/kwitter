@@ -46,9 +46,9 @@ class KweetList extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, props) => {
   return {
-    messages: state.messages,
+    messages: props.id ? state.messages.filter(message => message.userId == props.id) : state.messages,
     users: state.users
   };
 };

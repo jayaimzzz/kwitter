@@ -14,6 +14,7 @@ import ImageUpload from "./ImageUpload";
 import { updateUser } from "../ActionCreators/actions";
 
 class Profile extends Component {
+  
   render() {
     return (
       <Fragment>
@@ -49,10 +50,12 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, props) => {
+  const id = props.id ? props.id : state.loggedInUser.id;
   return {
-    user: state.users.filter(user => user.id === state.loggedInUser.id)[0],
-    token: state.loggedInUser.token
+    user: state.users.filter(user => user.id == id)[0],
+    token: state.loggedInUser.token,
+
   };
 };
 
