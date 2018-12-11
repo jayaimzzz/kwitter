@@ -32,8 +32,9 @@ class ImageUpload extends Component {
   }
 
   handleUpload = event => {
+    const file = this.state.file;
     this.handleToggle();
-    this.props.imageUpload(this.state.file); 
+    this.props.uploadImage({token: this.props.token, image: file}); 
   };
 
   render() {
@@ -62,7 +63,7 @@ class ImageUpload extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  imageUpload: image => dispatch(uploadImage(image))
+  uploadImage: image => dispatch(uploadImage(image))
 });
 
 export default connect(null, mapDispatchToProps)(ImageUpload);

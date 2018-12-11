@@ -26,7 +26,7 @@ class Profile extends Component {
                 >
                   <CardHeader title={this.props.user.displayName} />
                   <CardActions>
-                    <ImageUpload />
+                    <ImageUpload token={this.props.token}/>
                     <ProfileSettings
                       user={this.props.user}
                       updateUser={this.props.updateUser}

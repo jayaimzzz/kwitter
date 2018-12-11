@@ -1,4 +1,5 @@
 import axios from "axios";
+// import FormData from 'form-data';
 import { API_DOMAIN } from "../Constants";
 
 export const ADD_KWEET = "ADD_KWEET";
@@ -51,8 +52,8 @@ export const deleteUser = user => {
 };
 
 export const updateUser = (token, userInfo) => dispatch => {
-  console.log('token', token);
-  console.log('userInfo', userInfo);
+  console.log("token", token);
+  console.log("userInfo", userInfo);
   axios
     .patch(API_DOMAIN + "/users", userInfo, {
       headers: {
@@ -61,13 +62,13 @@ export const updateUser = (token, userInfo) => dispatch => {
       }
     })
     .then(response => {
-      console.log('dispatching update user');
+      console.log("dispatching update user");
       dispatch({
         type: UPDATE_USER
       });
     })
     .catch(err => console.log(err));
-  }
+};
 
 export const addLike = (kweet, user) => {
   return {
@@ -149,7 +150,17 @@ export function getMessages() {
   };
 }
 
-export const uploadImage = image => dispatch => {
-  // axios.post(API_DOMAIN, image).
-  console.log(image);
+export const uploadImage = ({ token, image }) => dispatch => {
+  let formData = new FormData();
+  formData.append("picture", image);
+
+  axios
+    .put(API_DOMAIN + "/users/picture", formData, {
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "multipart/form-data"
+      }
+    })
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
 };
