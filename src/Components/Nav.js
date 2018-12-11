@@ -12,6 +12,7 @@ const styles = {
   root: {
     position: "fixed",
     top: 0,
+    height: '20vh',
     width: "100%",
     zIndex: 10000
   },

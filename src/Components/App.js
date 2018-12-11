@@ -36,12 +36,7 @@ class App extends Component {
   renderMain = ({filter}) => {
     return (
     <Fragment>
-      <Grid container justify="center" spacing={16}>
-        <Grid item>
-          <Header />
-        </Grid>
-      </Grid>
-      <Grid container justify="center" spacing={16}>
+      <Grid container justify="center" spacing={16} style={{marginTop: '10vh'}}>
         <Nav logout={this.handleLogout} />
       </Grid>
       <Grid container justify="center" spacing={16}>
