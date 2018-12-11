@@ -10,7 +10,8 @@ import {
   Profile,
   TrendingList,
   Login,
-  Registration
+  Registration,
+  UserPage
 } from "./index";
 import { Grid, Hidden } from "@material-ui/core";
 
@@ -61,7 +62,7 @@ class App extends Component {
           <Route exact path="/login" render={() => <Login />} />
           <Route exact path="/register" render={() => <Registration />} />
           <Route exact path="/" render={this.selectPage} />
-          <Route path="/users/:id" render={() => <p>user</p>} />
+          <Route path="/users/:id" component={UserPage} />
         </Switch>
       </Fragment>
     );
