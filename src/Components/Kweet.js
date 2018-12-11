@@ -73,12 +73,15 @@ class Kweet extends Component {
             {this.props.likes.length}
           </Typography>
           <Typography variant="subtitle1" className={classes.separator} />
-          <IconButton
+          {this.props.deleteable && (
+
+            <IconButton
             onClick={() => this.props.deleteKweet(this.props.id)}
             className={classes.delete}
-          >
+            >
             <Delete />
           </IconButton>
+            )}
         </CardActions>
       </Card>
     );
