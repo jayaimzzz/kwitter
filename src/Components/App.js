@@ -91,7 +91,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    getMessages: offset => dispatch(getMessages(offset))
+    getMessages: offset => dispatch(getMessages(offset)),
     logout: token => dispatch(logout(token))
   };
 };

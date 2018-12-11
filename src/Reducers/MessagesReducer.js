@@ -16,9 +16,13 @@ export const MessagesReducer = (state = initState, action) => {
     }
 
     case DELETE_KWEET: {
-      let messages = state
-        .slice()
-        .filter(message => message.id !== action.payload.id);
+      let messages = state.slice()
+      let index = messages.findIndex(message => message.id === action.payload)
+      console.log(messages)
+      messages.splice(index,1)
+      console.log(messages)
+      console.log(action.payload)
+      console.log(index)
       return messages;
     }
     case GET_MESSAGES: {
@@ -39,7 +43,7 @@ export const MessagesReducer = (state = initState, action) => {
       return state;
 
     //TODO
-    case DELETE_LIKE:
+    case DELETE_LIKE: 
       return state;
 
     default:
