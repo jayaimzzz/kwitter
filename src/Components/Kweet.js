@@ -17,7 +17,9 @@ const styles = {
   },
   kweet: {
     fontSize: 18,
-    color: "black"
+    color: "black",
+    width: '100%',
+    wordWrap: 'break-word'
   },
   pos: {
     marginTop: 12
@@ -47,7 +49,7 @@ class Kweet extends Component {
       <Card className={classes.pos}>
         <CardHeader
           avatar={<Avatar src={userPhotoSrc} className={classes.avatar} />}
-          action={<Typography>{moment(this.props.createdAt).fromNow()}</Typography>}
+          action={<Typography variant="subtitle1">{moment(this.props.createdAt).fromNow()}</Typography>}
           title={this.props.username + ":"}
           classes={{
             title: classes.title,
@@ -55,7 +57,7 @@ class Kweet extends Component {
           }}
         />
         <CardContent>
-          <Typography className={classes.kweet}>"{this.props.text}"</Typography>
+          <Typography variant="body1" className={classes.kweet}>"{this.props.text}"</Typography>
         </CardContent>
         <CardActions>
           <IconButton
@@ -64,10 +66,10 @@ class Kweet extends Component {
           >
             <ThumbUp />
           </IconButton>
-          <Typography className={classes.like}>
+          <Typography variant="subtitle1" className={classes.like}>
             {this.props.likes.length}
           </Typography>
-          <Typography className={classes.separator} />
+          <Typography variant="subtitle1" className={classes.separator} />
           <IconButton
             onClick={() => console.log("Delete kweet button clicked")}
             className={classes.delete}
