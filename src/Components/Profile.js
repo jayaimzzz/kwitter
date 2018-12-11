@@ -1,13 +1,10 @@
 import React, { Component, Fragment } from "react";
 import {
-  Button,
   Card,
   CardActions,
   CardContent,
   CardHeader,
-  IconButton
 } from "@material-ui/core";
-import { Settings } from "@material-ui/icons";
 import { connect } from "react-redux";
 import ProfileSettings from "./ProfileSettings";
 import ImageUpload from "./ImageUpload";

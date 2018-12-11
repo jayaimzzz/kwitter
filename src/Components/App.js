@@ -7,7 +7,6 @@ import {
   KweetList,
   UserList,
   Profile,
-  TrendingList,
   Login,
   Registration,
 } from "./index";
@@ -43,7 +42,6 @@ class App extends Component {
         <Hidden mdDown>
           <Grid item md={3} sm={9}>
             <Profile id={filter}/>
-            <TrendingList />
           </Grid>
         </Hidden>
         <Grid item lg={6} md={7} sm={9} xs={12}>

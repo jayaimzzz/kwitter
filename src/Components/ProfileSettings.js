@@ -6,7 +6,6 @@ import {
   DialogContentText,
   DialogTitle,
   IconButton,
-  Input,
   TextField
 } from "@material-ui/core";
 import { Settings } from "@material-ui/icons";
