@@ -76,7 +76,7 @@ export function addLike(messageId, token) {
 export function deleteLike(likeId, token) {
   return function(dispatch) {
     axios({
-      method: "DEL",
+      method: "DELETE",
       url: API_DOMAIN + "/likes/" + likeId,
       headers: {
         Authorization: "Bearer " + token,

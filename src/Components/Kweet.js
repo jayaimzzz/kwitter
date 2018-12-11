@@ -61,7 +61,7 @@ thumbsUpClicked = () => {
       qtyLikes: this.state.qtyLikes + 1,
       like: this.props.likes.filter(like => like.userId === this.props.loggedInUser.id)[0] || null,
     likeId: this.like ? this.state.like.id : null,
-      // userLikesThisMessage: true
+
     })
 
 }
@@ -79,7 +79,6 @@ thumbsUpClicked = () => {
   }
 
   render() {
-    console.log(this.state)
     const { classes } = this.props;
     let userPhotoSrc =
       "http://www.dealnetcapital.com/wp-content/blogs.dir/9/files/2014/10/blank-profile.png";
