@@ -38,11 +38,28 @@ export const addUser = user => {
   };
 };
 
-export const deleteKweet = kweet => {
-  return {
-    type: DELETE_KWEET,
-    payload: kweet
-  };
+export const deleteKweet = (messageId) => (dispatch, getState) => {
+  let token = getState().loggedInUser.token
+  console.log(token)
+  axios({
+    method: "DELETE",
+    url: API_DOMAIN + "/messages/" + messageId,
+    headers: {
+      Authorization: "Bearer " + token,
+      "Content-Type": "application/json",
+      charset: "utf-8"
+    }
+  }).then(responce => {
+    if(responce){
+      dispatch({
+        type: DELETE_KWEET,
+        payload: messageId
+      })
+    } else {
+      console.log("delete kweet error")
+    }
+  })
+  .catch(err => console.log(err));
 };
 
 export const deleteUser = user => {
@@ -88,7 +105,7 @@ export const deleteLike = kweet => {
 export function getUsers() {
   return function(dispatch) {
     axios
-      .get(API_DOMAIN + "/users?limit=100&offset=0")
+      .get(API_DOMAIN + "/users?limit=10000&offset=0")
       .then(response => {
         if (response.data.users) {
           dispatch({
