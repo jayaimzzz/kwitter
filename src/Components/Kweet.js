@@ -79,6 +79,7 @@ thumbsUpClicked = () => {
   }
 
   render() {
+    // console.log(this.props.messages)
     const { classes } = this.props;
     let userPhotoSrc =
       "http://www.dealnetcapital.com/wp-content/blogs.dir/9/files/2014/10/blank-profile.png";
@@ -116,10 +117,11 @@ thumbsUpClicked = () => {
           {this.state.like !== null && (
             <Fragment>
               <IconButton
+                color="primary"
                 onClick={this.thumbsDownClicked}
                 className={classes.like}
               >
-                <ThumbDown />
+                <ThumbUp />
               </IconButton>
               <Typography className={classes.like}>
                 {this.state.qtyLikes}
