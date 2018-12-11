@@ -10,6 +10,7 @@ import {
 import { Settings } from "@material-ui/icons";
 import { connect } from "react-redux";
 import ProfileSettings from "./ProfileSettings";
+import ImageUpload from "./ImageUpload";
 import { updateUser } from "../ActionCreators/actions";
 
 class Profile extends Component {
@@ -25,6 +26,7 @@ class Profile extends Component {
                 >
                   <CardHeader title={this.props.user.displayName} />
                   <CardActions>
+                    <ImageUpload />
                     <ProfileSettings
                       user={this.props.user}
                       updateUser={this.props.updateUser}
