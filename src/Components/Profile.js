@@ -1,5 +1,11 @@
 import React, { Component, Fragment } from "react";
-import { Card, CardActions, CardContent, CardHeader, CardMedia } from "@material-ui/core";
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  CardMedia
+} from "@material-ui/core";
 import { connect } from "react-redux";
 import ProfileSettings from "./ProfileSettings";
 import ImageUpload from "./ImageUpload";
@@ -35,11 +41,19 @@ class Profile extends Component {
                     />
                   </CardActions>
                 </div>
-                {
-                  this.props.image
-                  ? <CardMedia image={`https://kwitter-api.herokuapp.com/users/${this.props.user.id}/picture`} style={{height: 500}}/>
-                  : <CardMedia image={`https://picsum.photos/${this.props.user.id}`} style={{height: 500}} />
-                }
+                {this.props.image ? (
+                  <CardMedia
+                    image={`https://kwitter-api.herokuapp.com/users/${
+                      this.props.user.id
+                    }/picture?random=${this.props.image}`}
+                    style={{ height: 500 }}
+                  />
+                ) : (
+                  <CardMedia
+                    image={`https://picsum.photos/${this.props.user.id}`}
+                    style={{ height: 500 }}
+                  />
+                )}
                 <span>Logged in as: {this.props.user.username}</span>
                 <br />
                 <span>About: {this.props.user.about}</span>
