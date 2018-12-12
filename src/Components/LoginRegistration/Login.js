@@ -3,16 +3,21 @@ import { Grid, Button, TextField, Typography, Paper } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { Link, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+// import image from './Kweet.png';
+import image from './kweet2.jpg';
 
 import { logInUser } from "../../ActionCreators/actions";
 
 const styles = {
   root: {
     flexGrow: 1,
-    background: "pink",
+    backgroundColor: 'lightgray',
+    background: `url(${image}) no-repeat center center fixed`,
+    backgroundSize: 'contain',
     height: "100vh"
   },
   Paper: {
+    backgroundColor: 'rgba(245, 245, 245, .9)',
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",

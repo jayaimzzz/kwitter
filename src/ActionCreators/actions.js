@@ -64,11 +64,21 @@ export const deleteKweet = messageId => (dispatch, getState) => {
     .catch(err => console.log(err));
 };
 
-export const deleteUser = user => {
-  return {
-    type: DELETE_USER,
-    payload: user
-  };
+export const deleteUser = () => (dispatch, getState) => {
+  axios
+    .delete(API_DOMAIN + "/users", {
+      headers: { Authorization: "Bearer " + getState().loggedInUser.token }
+    })
+    .then(res => {
+      if (res.status == 200) {
+        dispatch({
+          type: LOGOUT
+        });
+      } else {
+        console.log("delete user request unsuccessful");
+      }
+    })
+    .catch(err => console.log(err));
 };
 
 export const updateUser = (token, userInfo) => dispatch => {

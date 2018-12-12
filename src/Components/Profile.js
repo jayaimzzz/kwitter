@@ -1,20 +1,13 @@
 import React, { Component, Fragment } from "react";
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  IconButton
-} from "@material-ui/core";
-import { Settings } from "@material-ui/icons";
+import { Card, CardActions, CardContent, CardHeader } from "@material-ui/core";
 import { connect } from "react-redux";
 import ProfileSettings from "./ProfileSettings";
 import ImageUpload from "./ImageUpload";
-import { updateUser } from "../ActionCreators/actions";
+import { updateUser, deleteUser } from "../ActionCreators/actions";
 
 class Profile extends Component {
-  
+  handleDeleteUser = () => this.props.deleteUser();
+
   render() {
     return (
       <Fragment>
@@ -27,11 +20,12 @@ class Profile extends Component {
                 >
                   <CardHeader title={this.props.user.displayName} />
                   <CardActions>
-                    <ImageUpload token={this.props.token}/>
+                    <ImageUpload token={this.props.token} />
                     <ProfileSettings
                       user={this.props.user}
                       updateUser={this.props.updateUser}
                       token={this.props.token}
+                      handleDeleteUser={this.handleDeleteUser}
                     />
                   </CardActions>
                 </div>
@@ -54,13 +48,13 @@ const mapStateToProps = (state, props) => {
   const id = props.id ? props.id : state.loggedInUser.id;
   return {
     user: state.users.filter(user => user.id == id)[0],
-    token: state.loggedInUser.token,
-
+    token: state.loggedInUser.token
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  updateUser: (token, newInfo) => dispatch(updateUser(token, newInfo))
+  updateUser: (token, newInfo) => dispatch(updateUser(token, newInfo)),
+  deleteUser: () => dispatch(deleteUser())
 });
 
 export default connect(

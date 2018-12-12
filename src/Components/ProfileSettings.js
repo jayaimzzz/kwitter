@@ -6,7 +6,6 @@ import {
   DialogContentText,
   DialogTitle,
   IconButton,
-  Input,
   TextField
 } from "@material-ui/core";
 import { Settings } from "@material-ui/icons";
@@ -107,6 +106,9 @@ class ProfileSettings extends Component {
                   Save Changes
                 </Button>
               </div>
+              <Button onClick={this.props.handleDeleteUser} color="secondary">
+                Delete User
+              </Button>
             </form>
             <Dialog
               open={changePassword}
