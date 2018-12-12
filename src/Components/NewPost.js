@@ -11,7 +11,7 @@ const kweetMaxLength = 255;
 const styles = {
   NewPost: {
     margin: "auto",
-    marginTop: 10,
+    marginTop: '10vh',
     // background: "#ffa500",
     backgroundColor: 'rgba(205, 205, 200, 0.9)',
     // backgroundColor: 'rgb(205, 210, 200)',
@@ -74,7 +74,7 @@ class NewPost extends Component {
           {this.state.charactersRemaining} Characters Remaining
         </Typography>
         <Button style={styles.PostButton} onClick={this.handleSubmit}>
-          Post Sweet
+          Post Kweet
         </Button>
       </div>
     );
