@@ -90,7 +90,12 @@ class Nav extends Component {
               Sign Out
             </Button>
             <Typography variant="h6" color="inherit">
+            <Button
+            variant="contained"
+            color="primary"
+            onClick={this.props.home}>
               Home
+            </Button>
             </Typography>
           </Toolbar>
         </AppBar>
