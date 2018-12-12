@@ -14,7 +14,9 @@ const styles = {
     backgroundColor: 'lightgray',
     background: `url(${image}) no-repeat center center fixed`,
     backgroundSize: 'contain',
-    height: "100vh"
+    height: "100vh",
+    width: "100vw",
+    margin: 0
   },
   Paper: {
     backgroundColor: 'rgba(245, 245, 245, .9)',
