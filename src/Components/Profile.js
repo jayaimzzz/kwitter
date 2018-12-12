@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Card, CardActions, CardContent, CardHeader } from "@material-ui/core";
+import { Card, CardActions, CardContent, CardHeader, CardMedia } from "@material-ui/core";
 import { connect } from "react-redux";
 import ProfileSettings from "./ProfileSettings";
 import ImageUpload from "./ImageUpload";
@@ -35,6 +35,11 @@ class Profile extends Component {
                     />
                   </CardActions>
                 </div>
+                {
+                  this.props.image
+                  ? <CardMedia image={`https://kwitter-api.herokuapp.com/users/${this.props.user.id}/picture`} style={{height: 500}}/>
+                  : <CardMedia image={`https://picsum.photos/${this.props.user.id}`} style={{height: 500}} />
+                }
                 <span>Logged in as: {this.props.user.username}</span>
                 <br />
                 <span>About: {this.props.user.about}</span>
@@ -54,7 +59,8 @@ const mapStateToProps = (state, props) => {
   const id = props.id ? props.id : state.loggedInUser.id;
   return {
     user: state.users.filter(user => user.id == id)[0],
-    token: state.loggedInUser.token
+    token: state.loggedInUser.token,
+    image: state.image
   };
 };
 
