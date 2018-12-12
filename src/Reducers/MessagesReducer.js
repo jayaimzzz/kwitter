@@ -2,8 +2,9 @@ import {
   ADD_KWEET,
   DELETE_KWEET,
   ADD_LIKE,
-  DELETE_LIKE,
+  REMOVE_LIKE,
   GET_MESSAGES,
+  REFRESH_MESSAGE
 } from "../ActionCreators/actions";
 
 const initState = [];
@@ -39,8 +40,15 @@ export const MessagesReducer = (state = initState, action) => {
       return state;
 
     //TODO
-    case DELETE_LIKE: 
+    case REMOVE_LIKE: 
       return state;
+
+    case REFRESH_MESSAGE: {
+      let messages = state.slice();
+      let index = messages.findIndex(message => message.id === action.payload.id)
+      messages[index] = action.payload
+      return messages
+    }
 
     default:
       return state;

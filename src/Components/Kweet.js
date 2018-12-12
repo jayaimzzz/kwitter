@@ -11,7 +11,7 @@ import Delete from "@material-ui/icons/Delete";
 import Avatar from "@material-ui/core/Avatar";
 import CardHeader from "@material-ui/core/CardHeader";
 import moment from "moment";
-import { deleteKweet } from "../ActionCreators/actions"
+import { deleteKweet, toggleLike } from "../ActionCreators/actions"
 
 
 const styles = {
@@ -67,7 +67,7 @@ class Kweet extends Component {
         </CardContent>
         <CardActions>
           <IconButton
-            onClick={this.toggleLike}
+            onClick={() => this.props.toggleLike(this.props.id)}
             className={classes.like}
             color={this.props.liked ? "primary":""}
           >
@@ -95,7 +95,8 @@ const mapStateToProps = null;
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteKweet: (messageId) => {dispatch(deleteKweet(messageId))}
+    deleteKweet: (messageId) => {dispatch(deleteKweet(messageId))},
+    toggleLike: (messageId) => {dispatch(toggleLike(messageId))}
   }
 };
 

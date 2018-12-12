@@ -7,7 +7,8 @@ export const ADD_USER = "ADD_USER";
 export const DELETE_KWEET = "DELETE_KWEET";
 export const DELETE_USER = "DELETE_USER";
 export const ADD_LIKE = "ADD_LIKE";
-export const DELETE_LIKE = "DELETE_LIKE";
+export const REMOVE_LIKE = "REMOVE_LIKE";
+export const REFRESH_MESSAGE = "REFRESH_MESSAGE"
 export const LOGIN_USER = "LOGIN_USER";
 export const REFRESH_USERS = "REFRESH_USERS";
 export const GET_MESSAGES = "GET_MESSAGES";
@@ -92,25 +93,87 @@ export const updateUser = (token, userInfo) => dispatch => {
 export const toggleLike = messageId => (dispatch, getState) => {
   const userId = getState().loggedInUser.id
   const message = getState().messages.find(message => message.id === messageId)
-  const like = message.likes.find(like => like.userId === userId)
+  console.log(getState().messages)
+  console.log(messageId)
+  const like = message.likes.find(like => like.userId === userId) 
   console.log(like)
 
   //if we found a like, remove like, else, add like
   if (like) {
-    dispatch(removeLike(like.id));
+    dispatch(removeLike(like.id)).then(() => {
+      dispatch(getMessageById(messageId));
+    });
   } else {
-    dispatch(addLike(messageId));
+    dispatch(addLike(messageId)).then(() => {
+      dispatch(getMessageById(messageId))
+    });
   }
 };
 
-export const removeLike = (likeId) => (dispatch) => {
+export const removeLike = (likeId) => (dispatch, getState) => {
+  let token = getState().loggedInUser.token
+  return function (dispatch) {
+    axios({
+      method: "DELETE",
+      url: API_DOMAIN + '/likes' + likeId,
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+        charset: "utf-8"
+      }
+    }).then(responce => {
+      if (responce.data) {
+        dispatch({
+          type: REMOVE_LIKE,
+          payload: responce.data.like 
+        });
+      }
+    }).catch(err => console.log(err))
+  }
  //todo
 }
-export const addLike = (messageId) => (dispatch) => {
-  //todo 
+export const addLike = (messageId) => (dispatch, getState) => {
+  let token = getState().loggedInUser.token
+  return function (dispatch){
+    axios({
+      method: "POST",
+      url: API_DOMAIN + "/likes",
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+        charset: "utf-8"
+      },
+      data: {messageId: messageId }
+    })
+    .then(responce => {
+      if (responce.data) {
+        dispatch({
+          type: ADD_LIKE,
+          payload: responce.data.like 
+        });
+      }
+    })
+    .catch(err => console.log(err));
+  }
 }
 
 export const getMessageById = messageId => (dispatch) => {
+  return function (dispatch) {
+    axios
+      .get(API_DOMAIN + "/messages/" + messageId)
+      .then(responce => {
+        if (responce.data.message) {
+          dispatch({
+            type: REFRESH_MESSAGE,
+            payload: responce.data.message
+          })
+        } else {
+          console.log(responce.data.error)
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+  }
   //todo
 }
 
