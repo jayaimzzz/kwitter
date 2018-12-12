@@ -78,12 +78,13 @@ class Login extends Component {
       >
         <Paper className={classes.Paper}>
           <Typography variant="h1">Login</Typography>
-          <form className={classes.form} noValidate autoComplete="off">
+          <form className={classes.form} noValidate autoComplete="off" >
             <TextField
               id="username"
               label="Username"
               value={this.state.username}
               onChange={this.handleChange("username")}
+              autoFocus={true}
             />
             <TextField
               id="password"

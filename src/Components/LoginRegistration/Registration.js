@@ -92,6 +92,7 @@ class Registration extends Component {
               label="DisplayName"
               value={this.state.displayName}
               onChange={this.handleChange("displayName")}
+              autoFocus={true}
             />
             <TextField
               id="username"
