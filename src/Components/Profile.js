@@ -3,10 +3,12 @@ import { Card, CardActions, CardContent, CardHeader } from "@material-ui/core";
 import { connect } from "react-redux";
 import ProfileSettings from "./ProfileSettings";
 import ImageUpload from "./ImageUpload";
-import { updateUser } from "../ActionCreators/actions";
 import { Nav } from "./index";
+import { updateUser, deleteUser } from "../ActionCreators/actions";
 
 class Profile extends Component {
+  handleDeleteUser = () => this.props.deleteUser();
+
   render() {
     const fullPage = !this.props.notFullPage;
 
@@ -28,6 +30,7 @@ class Profile extends Component {
                       user={this.props.user}
                       updateUser={this.props.updateUser}
                       token={this.props.token}
+                      handleDeleteUser={this.handleDeleteUser}
                     />
                   </CardActions>
                 </div>
@@ -55,7 +58,8 @@ const mapStateToProps = (state, props) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  updateUser: (token, newInfo) => dispatch(updateUser(token, newInfo))
+  updateUser: (token, newInfo) => dispatch(updateUser(token, newInfo)),
+  deleteUser: () => dispatch(deleteUser())
 });
 
 export default connect(

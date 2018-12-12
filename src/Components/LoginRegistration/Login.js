@@ -17,6 +17,7 @@ const styles = {
     height: "100vh"
   },
   Paper: {
+    backgroundColor: 'rgba(245, 245, 245, .9)',
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",

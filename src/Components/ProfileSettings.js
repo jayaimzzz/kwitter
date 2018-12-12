@@ -106,6 +106,9 @@ class ProfileSettings extends Component {
                   Save Changes
                 </Button>
               </div>
+              <Button onClick={this.props.handleDeleteUser} color="secondary">
+                Delete User
+              </Button>
             </form>
             <Dialog
               open={changePassword}

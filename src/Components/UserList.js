@@ -9,14 +9,21 @@ import { Nav } from "./index";
 const styles = {
   UserList: {
     margin: "auto",
-    background: "#38a445",
     color: "white",
     textAlign: "center",
-    height: "70vh"
+    height: "80vh",
+    width: '35vh',
+    overflow: 'scroll',
+    position: 'fixed'
   },
   h1: {
-    background: "#38a445",
-    color: "white"
+    background: '#38a445',
+    color: 'white',
+    lineHeight: '60px',
+    position: 'fixed',
+    width: 'inherit',
+    marginTop: 0,
+    zIndex: 1
   }
 };
 
@@ -37,13 +44,15 @@ class UserList extends Component {
         {fullPage && <div style={{ height: 70 }} />}
         <div style={styles.UserList}>
           <h1 style={styles.h1}>Users</h1>
-          {this.props.users.map(user => (
-            <User
-              key={user.id}
-              displayName={user.displayName}
-              onClick={this.handleUserClick(user.id)}
-            />
-          ))}
+          <div style={{marginTop: '60px'}}>     
+            {this.props.users.map(user => (
+              <User
+                key={user.id}
+                displayName={user.displayName}
+                onClick={this.handleUserClick(user.id)}
+              />
+            ))}
+          </div>
         </div>
       </Fragment>
     );
