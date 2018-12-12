@@ -93,21 +93,12 @@ export const updateUser = (token, userInfo) => dispatch => {
 export const toggleLike = messageId => (dispatch, getState) => {
   const userId = getState().loggedInUser.id
   const message = getState().messages.find(message => message.id === messageId)
-  console.log(getState().messages)
-  console.log(messageId)
   const like = message.likes.find(like => like.userId === userId) 
-  console.log(like)
-
-  //if we found a like, remove like, else, add like
   if (like) {
-    // dispatch(removeLike(like.id))
-    //   dispatch(getMessageById(messageId));
     dispatch(removeLike(like.id)).then(() => {
       dispatch(getMessageById(messageId));
     });
   } else {
-    // dispatch(addLike(messageId))
-    //   dispatch(getMessageById(messageId))
     dispatch(addLike(messageId)).then(() => {
       dispatch(getMessageById(messageId))
     });
@@ -117,7 +108,6 @@ export const toggleLike = messageId => (dispatch, getState) => {
 export const removeLike = (likeId) => {
   return function (dispatch, getState) {
     let token = getState().loggedInUser.token
-    console.log("remove like is called")
     return axios({
       method: "DELETE",
       url: API_DOMAIN + '/likes/' + likeId,
@@ -135,12 +125,10 @@ export const removeLike = (likeId) => {
       }
     }).catch(err => console.log(err))
   }
- //todo
 }
 export const addLike = (messageId) => {
   return function (dispatch, getState){
     let token = getState().loggedInUser.token
-    console.log("add like is called")
     return axios({
       method: "POST",
       url: API_DOMAIN + "/likes",
@@ -165,7 +153,6 @@ export const addLike = (messageId) => {
 
 export const getMessageById = messageId => {
   return function (dispatch) {
-    console.log("get message by Id is called")
     axios
       .get(API_DOMAIN + "/messages/" + messageId)
       .then(responce => {
@@ -181,15 +168,7 @@ export const getMessageById = messageId => {
         console.log(error)
       })
   }
-  //todo
 }
-
-// export const deleteLike = kweet => {
-//   return {
-//     type: DELETE_LIKE,
-//     payload: kweet
-//   };
-// };
 
 export function getUsers() {
   return function(dispatch) {

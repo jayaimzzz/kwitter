@@ -43,9 +43,6 @@ const styles = {
 };
 
 class Kweet extends Component {
-  // toggleLike = () => {
-  //   console.log('toggleLIke')
-  // }
   render() {
     const { classes } = this.props;
     let userPhotoSrc =
@@ -69,7 +66,7 @@ class Kweet extends Component {
           <IconButton
             onClick={() => this.props.toggleLike(this.props.id)}
             className={classes.like}
-            color={this.props.liked ? "primary":""}
+            color={this.props.liked ? "secondary":"default"}
           >
             <ThumbUp />
           </IconButton>

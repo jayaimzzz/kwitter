@@ -34,7 +34,6 @@ class KweetList extends Component {
           let userDisplayName = user ? user.displayName : "anon";
           let like = message.likes.filter(like => like.userId === this.props.loggedInUser.id)[0]
           let liked = like ? true : false;
-          console.log(liked)
           return (
             <Kweet
               key={message.id}
@@ -57,7 +56,7 @@ class KweetList extends Component {
 const mapStateToProps = (state, props) => {
   return {
 
-    messages: props.id ? state.messages.filter(message => message.userId == props.id) : state.messages,
+    messages: props.id ? state.messages.filter(message => message.userId === props.id) : state.messages,
     users: state.users,
     loggedInUser: state.loggedInUser
 
