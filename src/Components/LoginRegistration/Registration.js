@@ -40,6 +40,20 @@ class Registration extends Component {
     redirectToLogin: false
   };
 
+  componentDidMount() {
+    document.documentElement.addEventListener('keyup', this.handleKeyUp); 
+  }
+
+  componentWillUnmount() {
+    document.documentElement.removeEventListener('keyup', this.handleKeyUp);
+  }
+
+  handleKeyUp = event => {
+    if (event.keyCode === 13) {
+      this.handleSubmit(event);
+    }
+  }
+
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value
