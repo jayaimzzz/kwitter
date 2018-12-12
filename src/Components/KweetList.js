@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 
 import Kweet from "./Kweet";
-import { getMessages } from "../ActionCreators/actions";
+import { getMessages, toggleLike } from "../ActionCreators/actions";
 
 const styles = {
   KweetList: {
@@ -32,6 +32,8 @@ class KweetList extends Component {
           let deleteable = message.userId === this.props.loggedInUser.id
           let user = this.props.users[indexOfUser];
           let userDisplayName = user ? user.displayName : "anon";
+          let like = message.likes.filter(like => like.userId === this.props.loggedInUser.id)[0]
+          let liked = like ? true : false;
           return (
             <Kweet
               key={message.id}
@@ -39,8 +41,10 @@ class KweetList extends Component {
               text={message.text}
               createdAt={message.createdAt}
               likes={message.likes}
+              liked={liked}
               username={userDisplayName}
               deleteable={deleteable}
+              toggleLike={() => this.props.toggleLike(message.id)}
             />
           );
         })}
@@ -52,7 +56,7 @@ class KweetList extends Component {
 const mapStateToProps = (state, props) => {
   return {
 
-    messages: props.id ? state.messages.filter(message => message.userId == props.id) : state.messages,
+    messages: props.id ? state.messages.filter(message => message.userId === props.id) : state.messages,
     users: state.users,
     loggedInUser: state.loggedInUser
 
@@ -62,6 +66,9 @@ const mapDispatchToProps = dispatch => {
   return {
     getMessages: () => {
       dispatch(getMessages());
+    },
+    toggleLike: (messageId) => {
+      dispatch(toggleLike(messageId));
     }
   };
 };
