@@ -1,20 +1,19 @@
 import React, { Component, Fragment } from "react";
-import {
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-} from "@material-ui/core";
+import { Card, CardActions, CardContent, CardHeader } from "@material-ui/core";
 import { connect } from "react-redux";
 import ProfileSettings from "./ProfileSettings";
 import ImageUpload from "./ImageUpload";
 import { updateUser } from "../ActionCreators/actions";
+import { Nav } from "./index";
 
 class Profile extends Component {
-  
   render() {
+    const fullPage = !this.props.notFullPage;
+
     return (
       <Fragment>
+        {fullPage && <Nav />}
+        {fullPage && <div style={{ height: 70 }} />}
         <Card>
           <CardContent>
             {this.props.user ? (
@@ -24,7 +23,7 @@ class Profile extends Component {
                 >
                   <CardHeader title={this.props.user.displayName} />
                   <CardActions>
-                    <ImageUpload token={this.props.token}/>
+                    <ImageUpload token={this.props.token} />
                     <ProfileSettings
                       user={this.props.user}
                       updateUser={this.props.updateUser}
@@ -51,8 +50,7 @@ const mapStateToProps = (state, props) => {
   const id = props.id ? props.id : state.loggedInUser.id;
   return {
     user: state.users.filter(user => user.id == id)[0],
-    token: state.loggedInUser.token,
-
+    token: state.loggedInUser.token
   };
 };
 

@@ -8,14 +8,13 @@ import {
   UserList,
   Profile,
   Login,
-  Registration,
+  Registration
 } from "./index";
 import { Grid, Hidden } from "@material-ui/core";
 import { getMessages } from "../ActionCreators/actions";
 import { logout } from "../ActionCreators/actions";
 
 class App extends Component {
-
   componentDidMount = () => {
     window.addEventListener("scroll", this.loadMoreKweets);
   };
@@ -32,37 +31,44 @@ class App extends Component {
     this.props.logout(this.props.loggedInUser.token);
   };
 
-  renderMain = ({filter}) => {
+  renderMain = ({ filter }) => {
     return (
-    <Fragment>
-      <Grid container justify="center" spacing={16} style={{marginTop: '10vh'}}>
-        <Nav logout={this.handleLogout} />
-      </Grid>
-      <Grid container justify="center" spacing={16}>
-        <Hidden mdDown>
-          <Grid item md={3} sm={9}>
-            <Profile id={filter}/>
+      <Fragment>
+        <Grid
+          container
+          justify="center"
+          spacing={16}
+          style={{ marginTop: "10vh" }}
+        >
+          <Nav logout={this.handleLogout} />
+        </Grid>
+        <Grid container justify="center" spacing={16}>
+          <Hidden mdDown>
+            <Grid item md={3} sm={9}>
+              <Profile id={filter} notFullPage={true} />
+            </Grid>
+          </Hidden>
+          <Grid item lg={6} md={7} sm={9} xs={12}>
+            {!filter && <NewPost />}
+            <KweetList id={filter} />
           </Grid>
-        </Hidden>
-        <Grid item lg={6} md={7} sm={9} xs={12}>
-          {!filter && <NewPost />}
-          <KweetList id={filter}/>
+          <Hidden smDown>
+            <Grid item lg={3} md={4} sm={9} xs={12}>
+              <UserList notFullPage={true} />
+            </Grid>
+          </Hidden>
         </Grid>
-        <Grid item lg={3} md={4} sm={9} xs={12}>
-          <UserList />
-        </Grid>
-      </Grid>
-    </Fragment>
-  );
-    }
+      </Fragment>
+    );
+  };
 
-  selectPage = ({match}) => {
+  selectPage = ({ match }) => {
     if (!this.props.loggedInUser) {
       return <Redirect to="/login" />;
     } else if (match.params.id) {
-      return this.renderMain({filter: match.params.id})
+      return this.renderMain({ filter: match.params.id });
     } else {
-      return this.renderMain({filter: null});
+      return this.renderMain({ filter: null });
     }
   };
 

@@ -1,9 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 
 import User from "./User";
 import { getUsers, getUserMessages } from "../ActionCreators/actions";
-import { history } from '../index';
+import { history } from "../index";
+import { Nav } from "./index";
 
 const styles = {
   UserList: {
@@ -14,8 +15,8 @@ const styles = {
     height: "70vh"
   },
   h1: {
-    background: '#38a445',
-    color: 'white'
+    background: "#38a445",
+    color: "white"
   }
 };
 
@@ -25,17 +26,26 @@ class UserList extends Component {
   }
 
   handleUserClick = id => event => {
-    history.push('/users/' + id);
-  }
+    history.push("/users/" + id);
+  };
 
   render() {
+    const fullPage = !this.props.notFullPage;
     return (
-      <div style={styles.UserList}>
-        <h1 style={styles.h1}>Users</h1>
-        {this.props.users.map(user => (
-          <User key={user.id} displayName={user.displayName} onClick={this.handleUserClick(user.id)}/>
-        ))}
-      </div>
+      <Fragment>
+        {fullPage && <Nav />}
+        {fullPage && <div style={{ height: 70 }} />}
+        <div style={styles.UserList}>
+          <h1 style={styles.h1}>Users</h1>
+          {this.props.users.map(user => (
+            <User
+              key={user.id}
+              displayName={user.displayName}
+              onClick={this.handleUserClick(user.id)}
+            />
+          ))}
+        </div>
+      </Fragment>
     );
   }
 }
@@ -48,7 +58,7 @@ const mapDispatchToProps = dispatch => {
     getUsers: () => {
       dispatch(getUsers());
     },
-    getUserMessages: (id) => {
+    getUserMessages: id => {
       dispatch(getUserMessages(id));
     }
   };
