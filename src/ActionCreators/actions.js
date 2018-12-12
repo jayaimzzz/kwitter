@@ -13,6 +13,7 @@ export const REFRESH_USERS = "REFRESH_USERS";
 export const GET_MESSAGES = "GET_MESSAGES";
 export const UPDATE_USER = "UPDATE_USER";
 export const LOGOUT = "LOGOUT";
+export const USER_IMAGE = 'USER_IMAGE';
 
 export const addKweet = ({ message, token }) => dispatch => {
   axios({
@@ -135,6 +136,7 @@ export function getUsers() {
 
 export function logInUser({ username, password }) {
   return function(dispatch) {
+    let userId = null;
     axios
       .post(API_DOMAIN + "/auth/login", {
         username,
@@ -142,6 +144,7 @@ export function logInUser({ username, password }) {
       })
       .then(response => {
         if (response.data.success) {
+          userId = response.data.id;
           dispatch({
             type: LOGIN_USER,
             payload: {
@@ -149,14 +152,19 @@ export function logInUser({ username, password }) {
               token: response.data.token
             }
           });
+
+          axios.get(API_DOMAIN + `/users/${userId}/picture`).then(res => {
+            if (res.status == 200 && res.headers["content-type"]){
+              dispatch({
+                type: USER_IMAGE,
+              })
+            }}).catch((err) => null); 
         } else {
           console.log("Access Denied");
         }
-      })
-      .catch(err => {
-        console.log(err);
-      });
+      }).catch(err => console.log(err));
   };
+
 }
 
 export function logout({ token }) {
