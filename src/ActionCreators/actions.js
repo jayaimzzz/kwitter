@@ -38,9 +38,9 @@ export const addUser = user => {
   };
 };
 
-export const deleteKweet = (messageId) => (dispatch, getState) => {
-  let token = getState().loggedInUser.token
-  console.log(token)
+export const deleteKweet = messageId => (dispatch, getState) => {
+  let token = getState().loggedInUser.token;
+  console.log(token);
   axios({
     method: "DELETE",
     url: API_DOMAIN + "/messages/" + messageId,
@@ -49,24 +49,35 @@ export const deleteKweet = (messageId) => (dispatch, getState) => {
       "Content-Type": "application/json",
       charset: "utf-8"
     }
-  }).then(responce => {
-    if(responce){
-      dispatch({
-        type: DELETE_KWEET,
-        payload: messageId
-      })
-    } else {
-      console.log("delete kweet error")
-    }
   })
-  .catch(err => console.log(err));
+    .then(responce => {
+      if (responce) {
+        dispatch({
+          type: DELETE_KWEET,
+          payload: messageId
+        });
+      } else {
+        console.log("delete kweet error");
+      }
+    })
+    .catch(err => console.log(err));
 };
 
-export const deleteUser = user => {
-  return {
-    type: DELETE_USER,
-    payload: user
-  };
+export const deleteUser = () => (dispatch, getState) => {
+  axios
+    .delete(API_DOMAIN + "/users", {
+      headers: { Authorization: "Bearer " + getState().loggedInUser.token }
+    })
+    .then(res => {
+      if (res.status == 200) {
+        dispatch({
+          type: LOGOUT
+        });
+      } else {
+        console.log("delete user request unsuccessful");
+      }
+    })
+    .catch(err => console.log(err));
 };
 
 export const updateUser = (token, userInfo) => dispatch => {
