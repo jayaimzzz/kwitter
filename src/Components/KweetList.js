@@ -55,13 +55,12 @@ class KweetList extends Component {
 
 const mapStateToProps = (state, props) => {
   return {
-
-    messages: props.id ? state.messages.filter(message => message.userId === props.id) : state.messages,
+    messages: props.id ? state.messages.filter(message => message.userId === Number(props.id)) : state.messages,
     users: state.users,
     loggedInUser: state.loggedInUser
-
   };
 };
+
 const mapDispatchToProps = dispatch => {
   return {
     getMessages: () => {
