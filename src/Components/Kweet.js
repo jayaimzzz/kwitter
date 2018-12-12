@@ -11,8 +11,7 @@ import Delete from "@material-ui/icons/Delete";
 import Avatar from "@material-ui/core/Avatar";
 import CardHeader from "@material-ui/core/CardHeader";
 import moment from "moment";
-import { deleteKweet } from "../ActionCreators/actions"
-
+import { deleteKweet } from "../ActionCreators/actions";
 
 const styles = {
   card: {
@@ -21,8 +20,8 @@ const styles = {
   kweet: {
     fontSize: 18,
     color: "black",
-    width: '100%',
-    wordWrap: 'break-word'
+    width: "100%",
+    wordWrap: "break-word"
   },
   pos: {
     marginTop: 12
@@ -52,7 +51,11 @@ class Kweet extends Component {
       <Card className={classes.pos}>
         <CardHeader
           avatar={<Avatar src={userPhotoSrc} className={classes.avatar} />}
-          action={<Typography variant="subtitle1">{moment(this.props.createdAt).fromNow()}</Typography>}
+          action={
+            <Typography variant="subtitle1">
+              {moment(this.props.createdAt).fromNow()}
+            </Typography>
+          }
           title={this.props.username + ":"}
           classes={{
             title: classes.title,
@@ -60,7 +63,9 @@ class Kweet extends Component {
           }}
         />
         <CardContent>
-          <Typography variant="body1" className={classes.kweet}>"{this.props.text}"</Typography>
+          <Typography variant="body1" className={classes.kweet}>
+            "{this.props.text}"
+          </Typography>
         </CardContent>
         <CardActions>
           <IconButton
@@ -74,14 +79,19 @@ class Kweet extends Component {
           </Typography>
           <Typography variant="subtitle1" className={classes.separator} />
           {this.props.deleteable && (
-
             <IconButton
-            onClick={() => this.props.deleteKweet(this.props.id)}
-            className={classes.delete}
+              onClick={() => {
+                if (
+                  window.confirm("Are you sure you want to delete this Kweet?")
+                ) {
+                  this.props.deleteKweet(this.props.id);
+                }
+              }}
+              className={classes.delete}
             >
-            <Delete />
-          </IconButton>
-            )}
+              <Delete />
+            </IconButton>
+          )}
         </CardActions>
       </Card>
     );
@@ -92,8 +102,13 @@ const mapStateToProps = null;
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteKweet: (messageId) => {dispatch(deleteKweet(messageId))}
-  }
+    deleteKweet: messageId => {
+      dispatch(deleteKweet(messageId));
+    }
+  };
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(Kweet));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(Kweet));
