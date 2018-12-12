@@ -45,16 +45,18 @@ class App extends Component {
         <Grid container justify="center" spacing={16}>
           <Hidden mdDown>
             <Grid item md={3} sm={9}>
-              <Profile id={filter} />
+              <Profile id={filter} notFullPage={true} />
             </Grid>
           </Hidden>
           <Grid item lg={6} md={7} sm={9} xs={12}>
             {!filter && <NewPost />}
             <KweetList id={filter} />
           </Grid>
-          <Grid item lg={3} md={4} sm={9} xs={12}>
-            <UserList />
-          </Grid>
+          <Hidden smDown>
+            <Grid item lg={3} md={4} sm={9} xs={12}>
+              <UserList notFullPage={true} />
+            </Grid>
+          </Hidden>
         </Grid>
       </Fragment>
     );
@@ -76,6 +78,8 @@ class App extends Component {
         <Switch>
           <Route exact path="/login" render={() => <Login />} />
           <Route exact path="/register" render={() => <Registration />} />
+          <Route exact path="/users" component={UserList} />
+          <Route exact path="/me" component={Profile} />
           <Route exact path="/" render={this.selectPage} />
           <Route path="/users/:id" render={this.selectPage} />
         </Switch>

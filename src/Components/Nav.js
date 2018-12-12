@@ -1,20 +1,26 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import {
+  Hidden,
+  Menu,
+  MenuItem,
+  IconButton,
+  Button,
+  Typography,
+  Toolbar,
+  AppBar,
+  withStyles
+} from "@material-ui/core";
+import { history } from "../index";
 
 const styles = {
   root: {
     position: "fixed",
     top: 0,
-    height: '20vh',
+    height: "20vh",
     width: "100%",
-    zIndex: 10000
+    zIndex: 1
   },
   grow: {
     flexGrow: 1
@@ -25,33 +31,74 @@ const styles = {
   }
 };
 
-const Nav = props => {
-  const { classes } = props;
-  return (
-    <div style={styles.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
-            KWITTER
-          </Typography>
-          <Button variant="contained" color="primary" onClick={props.logout}>
-            Sign Out
-          </Button>
-          <Typography variant="h6" color="inherit">
-            Home
-          </Typography>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
-};
+class Nav extends Component {
+  state = {
+    anchor: null
+  };
+
+  handleMenuIconClick = event => {
+    this.setState({
+      anchor: event.currentTarget
+    });
+  };
+
+  handleClose = () => {
+    this.setState({
+      anchor: null
+    });
+  };
+
+  render() {
+    const { classes } = this.props;
+    const open = Boolean(this.state.anchor);
+
+    return (
+      <div style={styles.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <Hidden lgUp>
+              <IconButton
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="Menu"
+                onClick={this.handleMenuIconClick}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                open={open}
+                anchorEl={this.state.anchor}
+                style={{ zIndex: 2 }}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                onClose={this.handleClose}
+              >
+                <MenuItem onClick={() => history.push("/me")}>
+                  Your Profile
+                </MenuItem>
+                <MenuItem onClick={() => history.push("/users")}>
+                  User List
+                </MenuItem>
+              </Menu>
+            </Hidden>
+            <Typography variant="h6" color="inherit" className={classes.grow}>
+              KWITTER
+            </Typography>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.props.logout}
+            >
+              Sign Out
+            </Button>
+            <Typography variant="h6" color="inherit">
+              Home
+            </Typography>
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
+}
 
 Nav.propTypes = {
   classes: PropTypes.object.isRequired

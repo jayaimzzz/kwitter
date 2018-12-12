@@ -3,14 +3,19 @@ import { Card, CardActions, CardContent, CardHeader } from "@material-ui/core";
 import { connect } from "react-redux";
 import ProfileSettings from "./ProfileSettings";
 import ImageUpload from "./ImageUpload";
+import { Nav } from "./index";
 import { updateUser, deleteUser } from "../ActionCreators/actions";
 
 class Profile extends Component {
   handleDeleteUser = () => this.props.deleteUser();
 
   render() {
+    const fullPage = !this.props.notFullPage;
+
     return (
       <Fragment>
+        {fullPage && <Nav />}
+        {fullPage && <div style={{ height: 70 }} />}
         <Card>
           <CardContent>
             {this.props.user ? (
