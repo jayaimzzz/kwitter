@@ -90,11 +90,8 @@ export const updateUser = (token, userInfo) => dispatch => {
 };
 
 export const toggleLike = messageId => (dispatch, getState) => {
-  // get messageId
-  // get userId
   const userId = getState().loggedInUser.id
   const message = getState().messages.find(message => message.id === messageId)
-  //lookup in the message wheater userId matches one of the likes
   const like = message.likes.find(like => like.userId === userId)
   console.log(like)
 
@@ -106,10 +103,16 @@ export const toggleLike = messageId => (dispatch, getState) => {
   }
 };
 
-const removeLike = (likeId) => (dispatch) => {
-
+export const removeLike = (likeId) => (dispatch) => {
+ //todo
 }
-const addLike = (messageId) => console.log(messageId)
+export const addLike = (messageId) => (dispatch) => {
+  //todo 
+}
+
+export const getMessageById = messageId => (dispatch) => {
+  //todo
+}
 
 // export const deleteLike = kweet => {
 //   return {
