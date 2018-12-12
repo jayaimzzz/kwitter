@@ -100,17 +100,17 @@ export const toggleLike = messageId => (dispatch, getState) => {
 
   //if we found a like, remove like, else, add like
   if (like) {
-    dispatch(removeLike(like.id))
-      dispatch(getMessageById(messageId));
-    // dispatch(removeLike(like.id)).then(() => {
+    // dispatch(removeLike(like.id))
     //   dispatch(getMessageById(messageId));
-    // });
+    dispatch(removeLike(like.id)).then(() => {
+      dispatch(getMessageById(messageId));
+    });
   } else {
-    dispatch(addLike(messageId))
-      dispatch(getMessageById(messageId))
-    // dispatch(addLike(messageId)).then(() => {
+    // dispatch(addLike(messageId))
     //   dispatch(getMessageById(messageId))
-    // });
+    dispatch(addLike(messageId)).then(() => {
+      dispatch(getMessageById(messageId))
+    });
   }
 };
 
@@ -118,7 +118,7 @@ export const removeLike = (likeId) => {
   return function (dispatch, getState) {
     let token = getState().loggedInUser.token
     console.log("remove like is called")
-    axios({
+    return axios({
       method: "DELETE",
       url: API_DOMAIN + '/likes/' + likeId,
       headers: {
@@ -141,7 +141,7 @@ export const addLike = (messageId) => {
   return function (dispatch, getState){
     let token = getState().loggedInUser.token
     console.log("add like is called")
-    axios({
+    return axios({
       method: "POST",
       url: API_DOMAIN + "/likes",
       headers: {
@@ -163,7 +163,7 @@ export const addLike = (messageId) => {
   }
 }
 
-export const getMessageById = messageId => (dispatch) => {
+export const getMessageById = messageId => {
   return function (dispatch) {
     console.log("get message by Id is called")
     axios
