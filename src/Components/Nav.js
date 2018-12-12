@@ -93,7 +93,7 @@ class Nav extends Component {
             <Button
             variant="contained"
             color="primary"
-            onClick={this.props.home}>
+            onClick={() => history.push('/')}>
               Home
             </Button>
             </Typography>
