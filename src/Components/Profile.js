@@ -11,7 +11,7 @@ import ProfileSettings from "./ProfileSettings";
 import ImageUpload from "./ImageUpload";
 import { Nav } from "./index";
 import { updateUser, deleteUser } from "../ActionCreators/actions";
-import moment from 'moment';
+import moment from "moment";
 
 class Profile extends Component {
   handleDeleteUser = () => this.props.deleteUser();
@@ -32,16 +32,20 @@ class Profile extends Component {
                 >
                   <CardHeader title={this.props.user.displayName} />
                   <CardActions>
-                    <ImageUpload token={this.props.token} />
-                    <ProfileSettings
-                      user={this.props.user}
-                      updateUser={this.props.updateUser}
-                      token={this.props.token}
-                      handleDeleteUser={this.handleDeleteUser}
-                    />
+                    {this.props.loggedInUsersProfile && (
+                      <Fragment>
+                        <ImageUpload token={this.props.token} />
+                        <ProfileSettings
+                          user={this.props.user}
+                          updateUser={this.props.updateUser}
+                          token={this.props.token}
+                          handleDeleteUser={this.handleDeleteUser}
+                        />
+                      </Fragment>
+                    )}
                   </CardActions>
                 </div>
-                {this.props.image ? (
+                {this.props.loggedInUsersProfile && this.props.image ? (
                   <CardMedia
                     image={`https://kwitter-api.herokuapp.com/users/${
                       this.props.user.id
@@ -58,7 +62,9 @@ class Profile extends Component {
                 <br />
                 <span>About: {this.props.user.about}</span>
                 <br />
-                <span>Member since: {moment(this.props.user.createdAt).fromNow()}</span>
+                <span>
+                  Member since: {moment(this.props.user.createdAt).fromNow()}
+                </span>
                 <br />
               </Fragment>
             ) : null}
@@ -71,10 +77,12 @@ class Profile extends Component {
 
 const mapStateToProps = (state, props) => {
   const id = props.id ? props.id : state.loggedInUser.id;
+  const loggedInUsersProfile = id == state.loggedInUser.id ? true : false;
   return {
     user: state.users.filter(user => user.id == id)[0],
     token: state.loggedInUser.token,
-    image: state.image
+    image: state.image,
+    loggedInUsersProfile: loggedInUsersProfile
   };
 };
 
