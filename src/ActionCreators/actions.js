@@ -217,7 +217,7 @@ export function logInUser({ username, password }) {
             payload: {
               id: response.data.id,
               token: response.data.token
-            }
+            } 
           });
 
           axios.get(API_DOMAIN + `/users/${userId}/picture`).then(res => {
@@ -229,7 +229,9 @@ export function logInUser({ username, password }) {
         } else {
           console.log("Access Denied");
         }
-      }).catch(err => console.log(err));
+      }).catch(err => {
+        alert("Access Denied. Check your username and password, or register as a new user")
+        console.log(err)});
   };
 
 }
