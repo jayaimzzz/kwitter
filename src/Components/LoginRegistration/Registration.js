@@ -65,6 +65,7 @@ class Registration extends Component {
         }
       })
       .catch(error => {
+        alert("Unable to register.  Username could be taken. Password may be terrible.")
         console.log(error);
       });
   };
