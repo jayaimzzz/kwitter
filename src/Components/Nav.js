@@ -12,7 +12,7 @@ import {
   AppBar,
   withStyles
 } from "@material-ui/core";
-import { history } from '../index';
+import { history } from "../index";
 
 const styles = {
   root: {
@@ -34,20 +34,20 @@ const styles = {
 class Nav extends Component {
   state = {
     anchor: null
-  }
+  };
 
-  handleMenuIconClick = (event) => {
+  handleMenuIconClick = event => {
     this.setState({
       anchor: event.currentTarget
-    })
-  }
+    });
+  };
 
   handleClose = () => {
     this.setState({
       anchor: null
-    }) ;
+    });
   };
-  
+
   render() {
     const { classes } = this.props;
     const open = Boolean(this.state.anchor);
@@ -65,15 +65,29 @@ class Nav extends Component {
               >
                 <MenuIcon />
               </IconButton>
-              <Menu open={open} anchorEl={this.state.anchor} style={{zIndex: 2}} anchorOrigin={{vertical: 'top', horizontal: 'right'}} onClose={this.handleClose}>
-                <MenuItem onClick={() => history.push('/me')}>Your Profile</MenuItem>
-                <MenuItem onClick={() => history.push('/users')}>User List</MenuItem>
+              <Menu
+                open={open}
+                anchorEl={this.state.anchor}
+                style={{ zIndex: 2 }}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                onClose={this.handleClose}
+              >
+                <MenuItem onClick={() => history.push("/me")}>
+                  Your Profile
+                </MenuItem>
+                <MenuItem onClick={() => history.push("/users")}>
+                  User List
+                </MenuItem>
               </Menu>
             </Hidden>
             <Typography variant="h6" color="inherit" className={classes.grow}>
               KWITTER
             </Typography>
-            <Button variant="contained" color="primary" onClick={this.props.logout}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.props.logout}
+            >
               Sign Out
             </Button>
             <Typography variant="h6" color="inherit">
@@ -84,8 +98,7 @@ class Nav extends Component {
       </div>
     );
   }
-
-};
+}
 
 Nav.propTypes = {
   classes: PropTypes.object.isRequired
