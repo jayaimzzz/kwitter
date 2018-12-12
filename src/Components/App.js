@@ -31,10 +31,6 @@ class App extends Component {
     this.props.logout(this.props.loggedInUser.token);
   };
 
-  handleGoHome = () => {
-    this.props.history.push('/')
-  }
-
   renderMain = ({ filter }) => {
     return (
       <Fragment>
@@ -45,10 +41,7 @@ class App extends Component {
           spacing={16}
           style={{ marginTop: "10vh" }}
         >
-          <Nav 
-          logout={this.handleLogout}
-          home={this.handleGoHome}
-           />
+          <Nav logout={this.handleLogout}/>
         </Grid>
         <Grid container justify="center" spacing={16}>
           <Hidden mdDown>
