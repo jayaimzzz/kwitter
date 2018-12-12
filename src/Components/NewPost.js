@@ -13,6 +13,9 @@ const styles = {
     margin: "auto",
     marginTop: 10,
     // background: "#ffa500",
+    backgroundColor: 'rgba(205, 205, 200, 0.9)',
+    // backgroundColor: 'rgb(205, 210, 200)',
+
     color: "white",
     textAlign: "center",
     width: "45vw",
@@ -67,7 +70,7 @@ class NewPost extends Component {
           inputProps={{ maxLength: kweetMaxLength }}
           onChange={this.handleChange}
         />
-        <Typography>
+        <Typography variant="h6" style={{backgroundColor: 'rgb(205, 205, 200)'}}>
           {this.state.charactersRemaining} Characters Remaining
         </Typography>
         <Button style={styles.PostButton} onClick={this.handleSubmit}>
