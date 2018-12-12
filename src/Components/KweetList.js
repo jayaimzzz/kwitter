@@ -8,9 +8,10 @@ const styles = {
   KweetList: {
     margin: "auto",
     marginTop: 50,
-    background: "#493154",
+    background: "#3f51b5",
     color: "white",
-    textAlign: "center"
+    textAlign: "center",
+    borderRadius: "5px"
     // width: "40vw",
     // height: "60vh"
   }

@@ -12,6 +12,7 @@ const styles = {
   NewPost: {
     margin: "auto",
     marginTop: '10vh',
+    marginBottom: '10vh',
     // background: "#ffa500",
     backgroundColor: 'rgba(205, 205, 200, 0.9)',
     // backgroundColor: 'rgb(205, 210, 200)',
