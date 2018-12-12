@@ -5,6 +5,7 @@ import ProfileSettings from "./ProfileSettings";
 import ImageUpload from "./ImageUpload";
 import { Nav } from "./index";
 import { updateUser, deleteUser } from "../ActionCreators/actions";
+import moment from 'moment';
 
 class Profile extends Component {
   handleDeleteUser = () => this.props.deleteUser();
@@ -38,7 +39,7 @@ class Profile extends Component {
                 <br />
                 <span>About: {this.props.user.about}</span>
                 <br />
-                <span>Member since: {this.props.user.createdAt}</span>
+                <span>Member since: {moment(this.props.user.createdAt).fromNow()}</span>
                 <br />
               </Fragment>
             ) : null}
