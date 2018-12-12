@@ -8,7 +8,8 @@ const styles = {
     Paper: {
         alignItems: 'center',
         display: 'flex',
-        padding: 10
+        padding: 10,
+        marginTop: 10
     }
 }
 

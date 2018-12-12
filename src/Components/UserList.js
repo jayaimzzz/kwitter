@@ -17,13 +17,14 @@ const styles = {
     position: 'fixed'
   },
   h1: {
-    background: '#38a445',
+    background: '#3f51b5',
     color: 'white',
     lineHeight: '60px',
     position: 'fixed',
     width: 'inherit',
     marginTop: 0,
-    zIndex: 1
+    zIndex: 1,
+    borderRadius: "5px"
   }
 };
 
