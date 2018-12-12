@@ -3,13 +3,13 @@ import {
     LOGOUT
   } from "../ActionCreators/actions";
   
-export const UserImageReducer = (state = false, action) => {
+export const UserImageReducer = (state = null, action) => {
     switch (action.type) {
       case USER_IMAGE: {
-        return true
+        return action.payload
       }
       case LOGOUT: {
-          return false
+          return null
       }
       default:
         return state;

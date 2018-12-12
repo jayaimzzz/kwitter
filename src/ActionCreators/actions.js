@@ -153,18 +153,24 @@ export function logInUser({ username, password }) {
             }
           });
 
-          axios.get(API_DOMAIN + `/users/${userId}/picture`).then(res => {
-            if (res.status == 200 && res.headers["content-type"]){
-              dispatch({
-                type: USER_IMAGE,
-              })
-            }}).catch((err) => null); 
+          renderImage(dispatch, userId);
+
         } else {
           console.log("Access Denied");
         }
       }).catch(err => console.log(err));
   };
 
+}
+
+function renderImage(dispatch, userId) {
+  axios.get(API_DOMAIN + `/users/${userId}/picture`).then(res => {
+    if (res.status == 200 && res.headers["content-type"].includes('image')){
+      dispatch({
+        type: USER_IMAGE,
+        payload: Math.floor(Math.random() * 10000) + 1
+      })
+    }}).catch((err) => null); 
 }
 
 export function logout({ token }) {
@@ -225,7 +231,7 @@ export const getUserMessages = id => dispatch => {
     .catch(err => console.log(err));
 };
 
-export const uploadImage = ({ token, image }) => dispatch => {
+export const uploadImage = ({ token, image }) => (dispatch, getState) => {
   let formData = new FormData();
   formData.append("picture", image);
 
@@ -236,6 +242,10 @@ export const uploadImage = ({ token, image }) => dispatch => {
         "Content-Type": "multipart/form-data"
       }
     })
-    .then(res => console.log(res))
+    .then(res => {
+      if (res.status == 200) {
+        renderImage(dispatch, getState().loggedInUser.id);
+      }
+    })
     .catch(err => console.log(err));
 };
