@@ -10,7 +10,7 @@ import {
   Login,
   Registration
 } from "./index";
-import { Grid, Hidden, CssBaseline } from "@material-ui/core";
+import { Grid, Hidden } from "@material-ui/core";
 import { getMessages } from "../ActionCreators/actions";
 import { logout } from "../ActionCreators/actions";
 
@@ -34,7 +34,6 @@ class App extends Component {
   renderMain = ({ filter }) => {
     return (
       <Fragment>
-        <CssBaseline />
         <Grid
           container
           justify="center"
