@@ -53,7 +53,7 @@ class Profile extends Component {
                     image={`https://kwitter-api.herokuapp.com/users/${
                       this.props.user.id
                     }/picture?random=${this.props.image}`}
-                    style={{ height: 500 }}
+                    style={{ height: 500, backgroundSize: 'contain' }}
                   />
                 ) : (
                   <CardMedia
