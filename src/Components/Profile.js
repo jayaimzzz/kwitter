@@ -58,7 +58,7 @@ class Profile extends Component {
                 ) : (
                   <CardMedia
                     image={`https://picsum.photos/${this.props.user.id}`}
-                    style={{ height: 500 }}
+                    style={{ height: 500, backgroundSize: 'contain' }}
                   />
                 )}
                 <span>Logged in as: {this.props.user.username}</span>
