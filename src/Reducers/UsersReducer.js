@@ -1,7 +1,8 @@
 import {
   ADD_USER,
   DELETE_USER,
-  REFRESH_USERS
+  REFRESH_USERS,
+  UPDATE_USER
 } from "../ActionCreators/actions";
 
 export const UsersReducer = (state = [], action) => {
@@ -18,6 +19,18 @@ export const UsersReducer = (state = [], action) => {
     }
     case REFRESH_USERS: {
       return action.payload;
+    }
+    case UPDATE_USER: {
+      return state.map(user => {
+        if (user.id == action.payload.userId) {
+          return {
+            ...user,
+            ...action.payload.userInfo
+          };
+        } else {
+          return user;
+        }
+      });
     }
     default:
       return state;
