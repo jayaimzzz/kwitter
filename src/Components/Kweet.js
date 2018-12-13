@@ -103,11 +103,7 @@ class Kweet extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
-  return {
-    image: state.image
-  };
-};
+const mapStateToProps = null
 
 const mapDispatchToProps = dispatch => {
   return {
