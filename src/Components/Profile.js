@@ -16,7 +16,7 @@ import moment from "moment";
 class Profile extends Component {
   handleDeleteUser = () => {
     if (window.confirm("Are you sure you want to delete your account?")) {
-      this.props.deleteUser()
+      this.props.deleteUser();
     }
   };
 
@@ -53,13 +53,27 @@ class Profile extends Component {
                     image={`https://kwitter-api.herokuapp.com/users/${
                       this.props.user.id
                     }/picture?random=${this.props.image}`}
-                    style={{ height: 500, backgroundSize: 'contain' }}
-                  />
+                    style={{ backgroundSize: "contain" }}
+                  >
+                    <img
+                      src={`https://kwitter-api.herokuapp.com/users/${
+                        this.props.user.id
+                      }/picture?random=${this.props.image}`}
+                      style={{ visibility: "hidden", maxWidth: "100%" }}
+                      alt="hidden"
+                    />
+                  </CardMedia>
                 ) : (
                   <CardMedia
                     image={`https://picsum.photos/${this.props.user.id}`}
-                    style={{ height: 500, backgroundSize: 'contain' }}
-                  />
+                    style={{ backgroundSize: "contain" }}
+                  >
+                    <img
+                      src={`https://picsum.photos/${this.props.user.id}`}
+                      style={{ visibility: "hidden", maxWidth: "100%" }}
+                      alt="hidden"
+                    />
+                  </CardMedia>
                 )}
                 <span>Logged in as: {this.props.user.username}</span>
                 <br />
