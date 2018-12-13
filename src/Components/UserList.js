@@ -12,7 +12,7 @@ const styles = {
     color: "white",
     textAlign: "center",
     height: "80vh",
-    width: '35vh',
+    width: 340,
     overflow: 'scroll',
     position: 'fixed'
   },
