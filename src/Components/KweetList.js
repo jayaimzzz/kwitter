@@ -20,20 +20,26 @@ const styles = {
 class KweetList extends Component {
   componentDidMount() {
     this.props.getMessages();
+
+    setTimeout(() => {
+      this.forceUpdate();
+    }, 1000);
   }
 
   render() {
     return (
       <Fragment>
         <h1 style={styles.KweetList}>Kweet Feed</h1>
-          {this.props.messages.map(message => {
+        {this.props.messages.map(message => {
           let indexOfUser = this.props.users.findIndex(
             user => user.id === message.userId
           );
-          let deleteable = message.userId === this.props.loggedInUser.id
+          let deleteable = message.userId === this.props.loggedInUser.id;
           let user = this.props.users[indexOfUser];
           let userDisplayName = user ? user.displayName : "anon";
-          let like = message.likes.filter(like => like.userId === this.props.loggedInUser.id)[0]
+          let like = message.likes.filter(
+            like => like.userId === this.props.loggedInUser.id
+          )[0];
           let liked = like ? true : false;
           return (
             <Kweet
@@ -56,7 +62,9 @@ class KweetList extends Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    messages: props.id ? state.messages.filter(message => message.userId === Number(props.id)) : state.messages,
+    messages: props.id
+      ? state.messages.filter(message => message.userId === Number(props.id))
+      : state.messages,
     users: state.users,
     loggedInUser: state.loggedInUser
   };
@@ -67,7 +75,7 @@ const mapDispatchToProps = dispatch => {
     getMessages: () => {
       dispatch(getMessages());
     },
-    toggleLike: (messageId) => {
+    toggleLike: messageId => {
       dispatch(toggleLike(messageId));
     }
   };
