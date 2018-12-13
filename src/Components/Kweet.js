@@ -11,6 +11,7 @@ import Delete from "@material-ui/icons/Delete";
 import Avatar from "@material-ui/core/Avatar";
 import CardHeader from "@material-ui/core/CardHeader";
 import moment from "moment";
+import { history } from "../index";
 
 import { deleteKweet, toggleLike } from "../ActionCreators/actions"
 
@@ -62,6 +63,7 @@ class Kweet extends Component {
             title: classes.title,
             action: classes.date
           }}
+          onClick={() => history.push("/users/" + this.props.userId)}
         />
         <CardContent>
           <Typography variant="body1" className={classes.kweet}>
