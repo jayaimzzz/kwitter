@@ -8,13 +8,13 @@ export const DELETE_KWEET = "DELETE_KWEET";
 export const DELETE_USER = "DELETE_USER";
 export const ADD_LIKE = "ADD_LIKE";
 export const REMOVE_LIKE = "REMOVE_LIKE";
-export const REFRESH_MESSAGE = "REFRESH_MESSAGE"
+export const REFRESH_MESSAGE = "REFRESH_MESSAGE";
 export const LOGIN_USER = "LOGIN_USER";
 export const REFRESH_USERS = "REFRESH_USERS";
 export const GET_MESSAGES = "GET_MESSAGES";
 export const UPDATE_USER = "UPDATE_USER";
 export const LOGOUT = "LOGOUT";
-export const USER_IMAGE = 'USER_IMAGE';
+export const USER_IMAGE = "USER_IMAGE";
 
 export const addKweet = ({ message, token }) => dispatch => {
   axios({
@@ -82,9 +82,10 @@ export const deleteUser = () => (dispatch, getState) => {
     .catch(err => console.log(err));
 };
 
-export const updateUser = (token, userInfo) => dispatch => {
-  console.log("token", token);
-  console.log("userInfo", userInfo);
+export const updateUser = (token, userInfo) => (dispatch, getState) => {
+  // console.log("token", token);
+  // console.log("userInfo", userInfo);
+  const userId = getState().loggedInUser.id;
   axios
     .patch(API_DOMAIN + "/users", userInfo, {
       headers: {
@@ -95,51 +96,57 @@ export const updateUser = (token, userInfo) => dispatch => {
     .then(response => {
       console.log("dispatching update user");
       dispatch({
-        type: UPDATE_USER
+        type: UPDATE_USER,
+        payload: { 
+          userInfo,
+          userId
+         }
       });
     })
     .catch(err => console.log(err));
 };
 
 export const toggleLike = messageId => (dispatch, getState) => {
-  const userId = getState().loggedInUser.id
-  const message = getState().messages.find(message => message.id === messageId)
-  const like = message.likes.find(like => like.userId === userId) 
+  const userId = getState().loggedInUser.id;
+  const message = getState().messages.find(message => message.id === messageId);
+  const like = message.likes.find(like => like.userId === userId);
   if (like) {
     dispatch(removeLike(like.id)).then(() => {
       dispatch(getMessageById(messageId));
     });
   } else {
     dispatch(addLike(messageId)).then(() => {
-      dispatch(getMessageById(messageId))
+      dispatch(getMessageById(messageId));
     });
   }
 };
 
-export const removeLike = (likeId) => {
-  return function (dispatch, getState) {
-    let token = getState().loggedInUser.token
+export const removeLike = likeId => {
+  return function(dispatch, getState) {
+    let token = getState().loggedInUser.token;
     return axios({
       method: "DELETE",
-      url: API_DOMAIN + '/likes/' + likeId,
+      url: API_DOMAIN + "/likes/" + likeId,
       headers: {
         Authorization: "Bearer " + token,
         "Content-Type": "application/json",
         charset: "utf-8"
       }
-    }).then(responce => {
-      if (responce.data) {
-        dispatch({
-          type: REMOVE_LIKE,
-          payload: responce.data.like 
-        });
-      }
-    }).catch(err => console.log(err))
-  }
-}
-export const addLike = (messageId) => {
-  return function (dispatch, getState){
-    let token = getState().loggedInUser.token
+    })
+      .then(responce => {
+        if (responce.data) {
+          dispatch({
+            type: REMOVE_LIKE,
+            payload: responce.data.like
+          });
+        }
+      })
+      .catch(err => console.log(err));
+  };
+};
+export const addLike = messageId => {
+  return function(dispatch, getState) {
+    let token = getState().loggedInUser.token;
     return axios({
       method: "POST",
       url: API_DOMAIN + "/likes",
@@ -148,22 +155,22 @@ export const addLike = (messageId) => {
         "Content-Type": "application/json",
         charset: "utf-8"
       },
-      data: {messageId: messageId }
+      data: { messageId: messageId }
     })
-    .then(responce => {
-      if (responce.data) {
-        dispatch({
-          type: ADD_LIKE,
-          payload: responce.data.like 
-        });
-      }
-    })
-    .catch(err => console.log(err));
-  }
-}
+      .then(responce => {
+        if (responce.data) {
+          dispatch({
+            type: ADD_LIKE,
+            payload: responce.data.like
+          });
+        }
+      })
+      .catch(err => console.log(err));
+  };
+};
 
 export const getMessageById = messageId => {
-  return function (dispatch) {
+  return function(dispatch) {
     axios
       .get(API_DOMAIN + "/messages/" + messageId)
       .then(responce => {
@@ -171,15 +178,16 @@ export const getMessageById = messageId => {
           dispatch({
             type: REFRESH_MESSAGE,
             payload: responce.data.message
-          })
+          });
         } else {
-          console.log(responce.data.error)
+          console.log(responce.data.error);
         }
-      }).catch(error => {
-        console.log(error)
       })
-  }
-}
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};
 
 export function getUsers() {
   return function(dispatch) {
@@ -217,29 +225,35 @@ export function logInUser({ username, password }) {
             payload: {
               id: response.data.id,
               token: response.data.token
-            } 
+            }
           });
 
           renderImage(dispatch, userId);
-
         } else {
           console.log("Access Denied");
         }
-      }).catch(err => {
-        alert("Access Denied. Check your username and password, or register as a new user")
-        console.log(err)});
+      })
+      .catch(err => {
+        alert(
+          "Access Denied. Check your username and password, or register as a new user"
+        );
+        console.log(err);
+      });
   };
-
 }
 
 function renderImage(dispatch, userId) {
-  axios.get(API_DOMAIN + `/users/${userId}/picture`).then(res => {
-    if (res.status == 200 && res.headers["content-type"].includes('image')){
-      dispatch({
-        type: USER_IMAGE,
-        payload: Math.floor(Math.random() * 10000) + 1
-      })
-    }}).catch((err) => null); 
+  axios
+    .get(API_DOMAIN + `/users/${userId}/picture`)
+    .then(res => {
+      if (res.status == 200 && res.headers["content-type"].includes("image")) {
+        dispatch({
+          type: USER_IMAGE,
+          payload: Math.floor(Math.random() * 10000) + 1
+        });
+      }
+    })
+    .catch(err => null);
 }
 
 export function logout({ token }) {
