@@ -14,7 +14,11 @@ import { updateUser, deleteUser } from "../ActionCreators/actions";
 import moment from "moment";
 
 class Profile extends Component {
-  handleDeleteUser = () => this.props.deleteUser();
+  handleDeleteUser = () => {
+    if (window.confirm("Are you sure you want to delete your account?")) {
+      this.props.deleteUser()
+    }
+  };
 
   render() {
     const fullPage = !this.props.notFullPage;
