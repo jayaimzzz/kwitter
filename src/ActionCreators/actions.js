@@ -1,5 +1,4 @@
 import axios from "axios";
-// import FormData from 'form-data';
 import { API_DOMAIN } from "../Constants";
 
 export const ADD_KWEET = "ADD_KWEET";
@@ -83,8 +82,6 @@ export const deleteUser = () => (dispatch, getState) => {
 };
 
 export const updateUser = (token, userInfo) => (dispatch, getState) => {
-  // console.log("token", token);
-  // console.log("userInfo", userInfo);
   const userId = getState().loggedInUser.id;
   axios
     .patch(API_DOMAIN + "/users", userInfo, {
@@ -191,7 +188,7 @@ export const getMessageById = messageId => {
 
 export function getUsers() {
   return function(dispatch) {
-    axios
+    return axios
       .get(API_DOMAIN + "/users?limit=10000&offset=0")
       .then(response => {
         if (response.data.users) {
@@ -220,15 +217,13 @@ export function logInUser({ username, password }) {
       .then(response => {
         if (response.data.success) {
           userId = response.data.id;
-          dispatch({
+          dispatch(getUsers()).then(() => dispatch({
             type: LOGIN_USER,
             payload: {
               id: response.data.id,
               token: response.data.token
             }
-          });
-
-          renderImage(dispatch, userId);
+          })).then(() => renderImage(dispatch, userId))
         } else {
           console.log("Access Denied");
         }
