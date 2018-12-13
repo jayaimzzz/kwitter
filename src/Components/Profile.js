@@ -22,7 +22,6 @@ class Profile extends Component {
 
   render() {
     const fullPage = !this.props.notFullPage;
-
     return (
       <Fragment>
         {fullPage && <Nav />}

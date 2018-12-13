@@ -45,6 +45,7 @@ class KweetList extends Component {
               liked={liked}
               username={userDisplayName}
               deleteable={deleteable}
+              userId={message.userId}
               toggleLike={() => this.props.toggleLike(message.id)}
             />
           );
