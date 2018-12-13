@@ -50,6 +50,7 @@ class UserList extends Component {
               <User
                 key={user.id}
                 displayName={user.displayName}
+                userId={user.id}
                 onClick={this.handleUserClick(user.id)}
               />
             ))}
