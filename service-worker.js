@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/carlfsmithiii/kwitter/precache-manifest.038ed29182069abbdf018c0ef8470cd4.js"
+  "/kwitter/precache-manifest.cdf5376d76f09ba1033bd507c736c5af.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/carlfsmithiii/kwitter/index.html", {
+workbox.routing.registerNavigationRoute("/kwitter/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
