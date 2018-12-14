@@ -7,7 +7,6 @@
     "@material-ui/icons": "^3.0.1",
     "axios": "^0.18.0",
     "css-loader": "^1.0.1",
-    "gh-pages": "^2.0.1",
     "material-ui-icons": "^1.0.0-beta.36",
     "moment": "^2.22.2",
     "react": "^16.6.3",
@@ -28,7 +27,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://github.com/carlfsmithiii/kwitter",
+  "homepage": "http://jayaimzzz.github.io/kwitter",
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -37,5 +36,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
+  }
 }
