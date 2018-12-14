@@ -7,6 +7,7 @@
     "@material-ui/icons": "^3.0.1",
     "axios": "^0.18.0",
     "css-loader": "^1.0.1",
+    "gh-pages": "^2.0.1",
     "material-ui-icons": "^1.0.0-beta.36",
     "moment": "^2.22.2",
     "react": "^16.6.3",
@@ -23,8 +24,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
+  "homepage": "https://github.com/carlfsmithiii/kwitter",
   "eslintConfig": {
     "extends": "react-app"
   },
