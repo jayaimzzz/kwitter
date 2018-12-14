@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/kwitter/precache-manifest.5cef9abf446fadc4c2560cd880c88cbf.js"
+  "/kwitter/precache-manifest.7f485331db03e6f4d06d2c4a6a8ee289.js"
 );
 
 workbox.clientsClaim();
