@@ -17,7 +17,7 @@ const styles = {
 const Kweet = ({displayName, image, onClick, userId }) => (
     
     <Paper style={styles.Paper} onClick={onClick}>
-        <Avatar src={ image || `https://picsum.photos/${userId}` } style={{height: 60, width: 60, marginLeft: 20}}/>
+        <Avatar src={ image || `https://picsum.photos/200/300?image=${userId}` } style={{height: 60, width: 60, marginLeft: 20}}/>
         <Typography variant="h6" style={{flexGrow: 1}}>{displayName}</Typography>
     </Paper>
 );

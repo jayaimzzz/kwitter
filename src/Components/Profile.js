@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { API_DOMAIN } from "../Constants";
 import {
   Card,
   CardActions,
@@ -50,13 +51,13 @@ class Profile extends Component {
                 </div>
                 {this.props.loggedInUsersProfile && this.props.image ? (
                   <CardMedia
-                    image={`https://kwitter-api.herokuapp.com/users/${
+                    image={`${API_DOMAIN}/users/${
                       this.props.user.id
                     }/picture?random=${this.props.image}`}
                     style={{ backgroundSize: "contain" }}
                   >
                     <img
-                      src={`https://kwitter-api.herokuapp.com/users/${
+                      src={`${API_DOMAIN}/users/${
                         this.props.user.id
                       }/picture?random=${this.props.image}`}
                       style={{ visibility: "hidden", maxWidth: "100%" }}
@@ -65,11 +66,11 @@ class Profile extends Component {
                   </CardMedia>
                 ) : (
                   <CardMedia
-                    image={`https://picsum.photos/${this.props.user.id}`}
+                    image={`https://picsum.photos/200/300?image=${this.props.user.id}`}
                     style={{ backgroundSize: "contain" }}
                   >
                     <img
-                      src={`https://picsum.photos/${this.props.user.id}`}
+                      src={`https://picsum.photos/200/300?image=${this.props.user.id}`}
                       style={{ visibility: "hidden", maxWidth: "100%" }}
                       alt="hidden"
                     />
