@@ -1,4 +1,4 @@
-Deployed at https://jayaimzzz.github.io/kwitter/login
+Deployed at https://jayaimzzz.github.io/kwitter
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
